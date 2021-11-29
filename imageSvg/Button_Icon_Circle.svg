@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" fill="none" viewBox="0 0 34 34">
+  <path stroke="#171717" stroke-opacity=".2" stroke-width="2" d="M17 33c8.837 0 16-7.163 16-16S25.837 1 17 1 1 8.163 1 17s7.163 16 16 16z" clip-rule="evenodd"/>
+  <path fill="#171717" fill-rule="evenodd" d="M13 13h3v3h-3v-3zm8 0v3h-3v-3h3zm-3 5.5h1v-1h-1v-1h1v1h1v-1h1v1h-1v1h1V20h-1v1h-1v-1h-1.5v1h-1v-2H18v-.5zm1 0V20h1v-1.5h-1zM13 21v-3h3v3h-3zm1-7v1h1v-1h-1zm5 0v1h1v-1h-1zm-5 5v1h1v-1h-1zm-1-2.5h1v1h-1v-1zm2.5 0h2v2h-1v-1h-1v-1zm1-2.5h1v2h-1v-2zM12 12v2h-1v-2a1 1 0 011-1h2v1h-2zm10-1a1 1 0 011 1v2h-1v-2h-2v-1h2zm-10 9v2h2v1h-2a1 1 0 01-1-1v-2h1zm10 2v-2h1v2a1 1 0 01-1 1h-2v-1h2z" clip-rule="evenodd"/>
+  <mask id="a" width="12" height="12" x="11" y="11" maskUnits="userSpaceOnUse" style="mask-type:alpha">
+    <path fill="#fff" fill-rule="evenodd" d="M13 13h3v3h-3v-3zm8 0v3h-3v-3h3zm-3 5.5h1v-1h-1v-1h1v1h1v-1h1v1h-1v1h1V20h-1v1h-1v-1h-1.5v1h-1v-2H18v-.5zm1 0V20h1v-1.5h-1zM13 21v-3h3v3h-3zm1-7v1h1v-1h-1zm5 0v1h1v-1h-1zm-5 5v1h1v-1h-1zm-1-2.5h1v1h-1v-1zm2.5 0h2v2h-1v-1h-1v-1zm1-2.5h1v2h-1v-2zM12 12v2h-1v-2a1 1 0 011-1h2v1h-2zm10-1a1 1 0 011 1v2h-1v-2h-2v-1h2zm-10 9v2h2v1h-2a1 1 0 01-1-1v-2h1zm10 2v-2h1v2a1 1 0 01-1 1h-2v-1h2z" clip-rule="evenodd"/>
+  </mask>
+</svg>

@@ -1,0 +1,22 @@
+{
+    "needhelp":"Need some  help?",
+    "forgotcreden":"Forgot your credentials?",
+    "getstarted":"Let’s Get Started!",
+    "getstartedsub":"Sign up  with socials or fill the form to continue.",
+    "welcomeback":"Welcome Back!",
+    "welcomebacksub":"Enter your credentials to continue",
+    "email":"Email",
+    "username":"Username",
+    "password":"Password",
+    "agreeterms":"I agree with Terms of Use",
+    "rememberme":"Remember me next time",
+    "login":"Login",
+    "signup":"Sign up",
+    "forgetpass":"Forgot your password?",
+    "forgetpasssup":"If you need help resetting your password we can help by sending you a link to reset it. ",
+    "phonever":"Phone Verification",
+    "phoneversup":"Please enter the 4-digit code sent to you at ",
+    "resendcode":"Resend Code",
+    "verifycode":"VERIFY CODE",
+    "tcontunue":"CONTINUE"
+}
