@@ -16,26 +16,31 @@ class HomeApiController
   Future<List<CategoriesHome>> getDataCategory() async {
     var url = Uri.parse(ApiSettings.home);
     var response = await http.get(url,headers:{
-      HttpHeaders.authorizationHeader:SharedPrefController().token
+      HttpHeaders.authorizationHeader:SharedPrefController().token,
+      HttpHeaders.acceptHeader:'application/json'
     });
 
     if (response.statusCode == 200) {
       var jsonResponse = jsonDecode(response.body);
+      print("ahmed get data");
       HomeBase apiResponse = HomeBase.fromJson(jsonResponse);
+      print("ahmed get data");
       return apiResponse.data.categories;
     } else {
       //SHOW MESSAGE
     }
     return [];
   }
-  Future<List<Slider>> getDataSlider() async {
+  Future<List<SliderModel>> getDataSlider() async {
     var url = Uri.parse(ApiSettings.home);
     var response = await http.get(url,headers:{
-      HttpHeaders.authorizationHeader:SharedPrefController().token
+      HttpHeaders.authorizationHeader:SharedPrefController().token,
+      //HttpHeaders.acceptHeader:'application/json'
     });
-
+  //  print("ahmed get data"+response.body.toString());
     if (response.statusCode == 200) {
       var jsonResponse = jsonDecode(response.body);
+      print("ahmed get data"+response.body.toString());
       HomeBase apiResponse = HomeBase.fromJson(jsonResponse);
       return apiResponse.data.slider;
     } else {
@@ -46,7 +51,8 @@ class HomeApiController
   Future<List<FamousProducts>> getDataFamousProduct() async {
     var url = Uri.parse(ApiSettings.home);
     var response = await http.get(url,headers:{
-      HttpHeaders.authorizationHeader:SharedPrefController().token
+      HttpHeaders.authorizationHeader:SharedPrefController().token,
+      HttpHeaders.acceptHeader:'application/json'
     });
 
     if (response.statusCode == 200) {

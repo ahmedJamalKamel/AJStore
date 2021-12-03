@@ -12,97 +12,154 @@ class CategoryScreenOP1 extends StatefulWidget {
 }
 
 class _CategoryScreenOP1State extends State<CategoryScreenOP1> {
+  bool page1 = true;
+  bool page2 = false;
+  bool page3 = false;
+  bool page4 = false;
+  List<bool> page=[true,false,false,false];
   @override
   Widget build(BuildContext context) {
+    final PageController controller = PageController(
+      initialPage: 0,
+      viewportFraction: .6,
+      keepPage: true,
+    );
     return Scaffold(
-      body: Column(
+      body: Stack(
         children: [
-          Container(
-            margin: EdgeInsets.only(left: 28.w, right: 28.w, top: 55.h),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Container(
-                  //  margin: EdgeInsets.only(left: 28.w, right: 28.w, top: 55.h),
-                  height: 38.h,
-                  width: 38.w,
-                  decoration: BoxDecoration(
-                      color: color1, borderRadius: BorderRadius.circular(19.w)),
-                  child: Center(
-                      child: IconButton(
-                    onPressed: () {},
-                    icon: Icon(
-                      Icons.arrow_back_ios,
-                      color: Colors.white,
-                      size: 15.w,
+          Column(
+            children: [
+              Container(
+                margin: EdgeInsets.only(left: 28.w, right: 28.w, top: 55.h),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    InkWell(
+                      onTap: (){
+                        Navigator.pop(context);
+                      },
+                      child: Container(
+                        //  margin: EdgeInsets.only(left: 28.w, right: 28.w, top: 55.h),
+                        height: 38.h,
+                        width: 38.w,
+                        decoration: BoxDecoration(
+                            color: color1, borderRadius: BorderRadius.circular(19.w)),
+                        child: SvgPicture.asset("imageSvg/Left_Button_Blake.svg")
+                      ),
                     ),
-                  )),
+                    Container(
+                      //    margin: EdgeInsets.only(left: 28.w, right: 28.w, top: 55.h),
+                      height: 38.h,
+                      width: 38.w,
+                      decoration: BoxDecoration(
+                          color: color7, borderRadius: BorderRadius.circular(19.w)),
+                      child: const Center(
+                          child: Text(
+                        "0",
+                        style: TextStyle(color: Colors.white),
+                      )),
+                    ),
+                  ],
                 ),
-                Container(
-                  //    margin: EdgeInsets.only(left: 28.w, right: 28.w, top: 55.h),
-                  height: 38.h,
-                  width: 38.w,
-                  decoration: BoxDecoration(
-                      color: color7, borderRadius: BorderRadius.circular(19.w)),
-                  child: Center(
-                      child: Text(
-                    "0",
-                    style: TextStyle(color: Colors.white),
-                  )),
-                ),
-              ],
-            ),
-          ),
-          SizedBox(
-            height: 46.h,
-          ),
-          Container(
-            height: 72.h,
-            child: ListView(
-              scrollDirection: Axis.horizontal,
-              children: [
-                Container(
-                    margin: EdgeInsets.only(left: 37.w, right: 37.w),
-                    child: Text(
+              ),
+              SizedBox(
+                height: 46.h,
+              ),
+              SizedBox(
+                height: 72.h,
+                child: PageView(
+                  onPageChanged: (value)
+                  {
+                    setState(()
+                    {
+                      page=[false,false,false,false];
+                      page[value]=!page[value];
+                    }
+                    );
+                  },
+
+                  /// [PageView.scrollDirection] defaults to [Axis.horizontal].
+                  /// Use [Axis.vertical] to scroll vertically.
+                  scrollDirection: Axis.horizontal,
+                  controller: controller,
+                  children: <Widget>[
+                    Center(
+                        //margin: EdgeInsets.only(left: 37.w, right: 37.w),
+                        child: Text(
                       "Gadgets",
-                      style: TextStyle(
-                          fontSize: 60.sp, fontWeight: FontWeight.bold),
+                      style:
+                          TextStyle(fontSize: 50.sp, fontWeight: FontWeight.bold,color: page[0]?color1:color3),
                     )),
-                Container(
-                    margin: EdgeInsets.only(left: 37.w, right: 37.w),
-                    child: Text(
+                    Center(
+                        // margin: EdgeInsets.only(left: 37.w, right: 37.w),
+                        child: Text(
                       "Shoes",
-                      style: TextStyle(
-                          fontSize: 60.sp, fontWeight: FontWeight.bold),
+                      style:
+                          TextStyle(fontSize: 50.sp, fontWeight: FontWeight.bold,color: page[1]?color1:color3),
                     )),
-                Container(
-                    margin: EdgeInsets.only(left: 37.w, right: 37.w),
-                    child: Text(
+                    Center(
+                        //  margin: EdgeInsets.only(left: 37.w, right: 37.w),
+                        child: Text(
                       "Lifestyle",
-                      style: TextStyle(
-                          fontSize: 60.sp, fontWeight: FontWeight.bold),
+                      style:
+                          TextStyle(fontSize: 50.sp, fontWeight: FontWeight.bold,color: page[2]?color1:color3),
                     )),
-                Container(
-                    margin: EdgeInsets.only(left: 37.w, right: 37.w),
-                    child: Text(
+                    Center(
+                        // margin: EdgeInsets.only(left: 37.w, right: 37.w),
+                        child: Text(
                       "Gadgets",
-                      style: TextStyle(
-                          fontSize: 60.sp, fontWeight: FontWeight.bold),
+                      style:
+                          TextStyle(fontSize: 50.sp, fontWeight: FontWeight.bold,color: page[3]?color1:color3),
                     ))
-              ],
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: 30.h,
+              ),
+              Expanded(
+                child: ListView.builder(
+                  padding: EdgeInsets.symmetric(horizontal: 28.w),
+                  itemCount: 5,
+                  itemBuilder: (context, index) {
+                    return Card09();
+                  },
+                ),
+              )
+            ],
+          ),
+          Align(
+            alignment: AlignmentDirectional.bottomCenter,
+            child: Container(
+              margin: EdgeInsets.only(left: 20.w, right: 20.w,bottom: 28.h),
+              // width: 562.w,
+              height: 60.h,
+              decoration: BoxDecoration(
+                  color: color1, borderRadius: BorderRadius.circular(30.w)),
+              child: Row(
+                children: [
+                  const Spacer(),
+                 Text("146 Items",style: TextStyle(color: color2),),
+                  const Spacer(),
+                  VerticalDivider(color:color3 ,),
+                  const Spacer(),
+                  InkWell(
+                    onTap: (){
+                      Navigator.of(context).pushNamed("/category_screen_op2");
+                    },
+                    child: Row(
+                      children: [
+                        SvgPicture.asset("imageSvg/FiltersIcon.svg",color:color2,),
+                        SizedBox(width: 10.w,),
+                        Text("Add Filters",style: TextStyle(color: Colors.white,fontSize: 10.sp),),
+                      ],
+                    ),
+                  ),
+                  const Spacer(),
+                ],
+              ),
             ),
           ),
-          SizedBox(
-            height: 106.h,
-          ),
-          Expanded(
-            child: ListView.builder(
-              itemCount: 5,
-              itemBuilder: (context, index) {
-                return Card09();
-              },
-            ),
-          )
         ],
       ),
     );

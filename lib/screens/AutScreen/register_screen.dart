@@ -4,9 +4,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:scound_project_elancer/Them/colors.dart';
 import 'package:scound_project_elancer/api/controler/auth_api_controller.dart';
+import 'package:scound_project_elancer/get/author_getx_controller.dart';
 import 'package:scound_project_elancer/helpers/helpers.dart';
 import 'package:scound_project_elancer/model/register.dart';
-import 'package:scound_project_elancer/screens/AutScreen/password/reset_password_screen.dart';
+import 'package:scound_project_elancer/screens/AutScreen/code_active_screen.dart';
 import 'package:scound_project_elancer/widgets/app_text_field.dart';
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({Key? key}) : super(key: key);
@@ -16,15 +17,28 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen>with Helpers {
+  List<String>items=[];
+  String dropdownvalue = '';
+  String indexcity="1";
+  void getData()
+  {
+    for(int i=0;i<CityrGetxController.to.city.value.length;i++)
+    {
+      items.add(CityrGetxController.to.city.value[i].nameEn);
+    }
+    dropdownvalue=items[0];
+  }
+
   late TextEditingController _userNametextEditingController;
   late TextEditingController _passwordtextEditingController;
   late TextEditingController _emailtextEditingController;
   late TextEditingController _mobiletextEditingController;
   late TextEditingController _gendertextEditingController;
 //  late TextEditingController _gendertextEditingController;
-
+    bool chekBooks=false;
   @override
   void initState() {
+    getData();
     _userNametextEditingController = TextEditingController();
     _passwordtextEditingController = TextEditingController();
     _emailtextEditingController = TextEditingController();
@@ -52,26 +66,26 @@ class _RegisterScreenState extends State<RegisterScreen>with Helpers {
       body: ListView(
         padding: EdgeInsets.symmetric(horizontal: 28.w),
         children: [
-          Container(
-            margin: EdgeInsets.only(top: 40.h),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                CircleAvatar(
-                  radius: 19.w,
-                  child: Icon(
-                    Icons.clear,
-                    color: color1,
-                  ),
-                  backgroundColor: color3.withOpacity(.2),
-                ),
-                Container(
-                    child: Text(AppLocalizations.of(context)!.needhelp)),
-              ],
-            ),
-          ),
+          // Container(
+          //   margin: EdgeInsets.only(top: 40.h),
+          //   child: Row(
+          //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //     children: [
+          //       CircleAvatar(
+          //         radius: 19.w,
+          //         child: Icon(
+          //           Icons.clear,
+          //           color: color1,
+          //         ),
+          //         backgroundColor: color3.withOpacity(.2),
+          //       ),
+          //       Container(
+          //           child: Text(AppLocalizations.of(context)!.needhelp)),
+          //     ],
+          //   ),
+          // ),
           SizedBox(
-            height: 28.h,
+            height: 100.h,
           ),
           Text(
             AppLocalizations.of(context)!.getstarted,
@@ -86,22 +100,6 @@ class _RegisterScreenState extends State<RegisterScreen>with Helpers {
           SizedBox(
             height: 40.h,
           ),
-          // Text(
-          //   AppLocalizations.of(context)!.email,
-          //   style: TextStyle(fontSize: 12.sp, color: color3),
-          // ),
-          // SizedBox(
-          //   height: 7.h,
-          // ),
-          // AppTextField(
-          //   prefixIcon: Icons.email_outlined,
-          //   color: color1,
-          //   textEditingController: _emailtextEditingController,
-          //   hint: AppLocalizations.of(context)!.username,
-          // ),
-          // SizedBox(
-          //   height: 30.h,
-          // ),
           Text(
             "Phone Number",
             style: TextStyle(fontSize: 12.sp, color: color3),
@@ -112,6 +110,7 @@ class _RegisterScreenState extends State<RegisterScreen>with Helpers {
           AppTextField(
             prefixIcon: Icons.person_outline,
             color: color1,
+            textInputType: TextInputType.phone,
             textEditingController: _mobiletextEditingController,
             hint: "595685472",
           ),
@@ -146,6 +145,42 @@ class _RegisterScreenState extends State<RegisterScreen>with Helpers {
             color: color1,
             textEditingController: _passwordtextEditingController,
             hint: AppLocalizations.of(context)!.password,
+          ),
+          SizedBox(
+            height: 10.h,
+          ),
+          Text(
+            "City",
+            style: TextStyle(fontSize: 12.sp, color: color3),
+          ),
+          DropdownButton(
+            value: dropdownvalue,
+            icon: Icon(Icons.keyboard_arrow_down),
+            underline: SizedBox(),
+            items:items.map((String items) {
+              return DropdownMenuItem(
+                  value: items,
+                  child: Text(items)
+              );
+            }
+            ).toList(),
+            onChanged: (value) {
+
+              setState(() {
+                dropdownvalue = value.toString();
+                for(int i=0;i<items.length;i++)
+                {
+                  if(dropdownvalue==items[i])
+                  {
+                    int j =i+1;
+                    setState(() {
+                      indexcity=j.toString();
+                      print("city selected "+indexcity);
+                    });
+                  }
+                }
+              });
+            },
           ),
           SizedBox(
             height: 10.h,
@@ -186,14 +221,24 @@ class _RegisterScreenState extends State<RegisterScreen>with Helpers {
             ],
           ),
           SizedBox(
-            height: 48.h,
+            height: 10.h,
           ),
-          Text(
-            AppLocalizations.of(context)!.agreeterms,
-            style: TextStyle(fontSize: 14.sp, color: color3),
+          Row(
+            children: [
+              Text(
+                AppLocalizations.of(context)!.agreeterms,
+                style: TextStyle(fontSize: 12.sp, color: color3),
+              ),
+              SizedBox(width: 10.w,),
+              Checkbox(value: chekBooks, onChanged:(value) {
+                setState(() {
+                  chekBooks=!chekBooks;
+                });
+              },)
+            ],
           ),
           SizedBox(
-            height: 48.h,
+            height: 30.h,
           ),
           ElevatedButton(
             onPressed: () async => await performRegister(),
@@ -219,7 +264,17 @@ class _RegisterScreenState extends State<RegisterScreen>with Helpers {
     if (_userNametextEditingController.text.isNotEmpty &&
         _mobiletextEditingController.text.isNotEmpty &&
         _passwordtextEditingController.text.isNotEmpty) {
-      return true;
+      if(chekBooks)
+      {
+        return true;
+      }
+      else{
+        showSnackBar(
+          context: context,
+          message: 'You must agree to the terms of use!',
+          error: true,
+        );
+      }
     }
     showSnackBar(
       context: context,
@@ -245,10 +300,10 @@ class _RegisterScreenState extends State<RegisterScreen>with Helpers {
   RegisterUser get student {
     RegisterUser student = RegisterUser();
     student.name = _userNametextEditingController.text;
-    student.mobile = "597674400";
+    student.mobile = _mobiletextEditingController.text;
     student.password = _passwordtextEditingController.text;
-    student.gender = "M";
-    student.city_id="1";
+    student.gender = _gender;
+    student.city_id=indexcity;
     return student;
   }
 }

@@ -1,18 +1,15 @@
 
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:scound_project_elancer/Them/colors.dart';
 import 'package:scound_project_elancer/api/controler/auth_api_controller.dart';
 import 'package:scound_project_elancer/helpers/helpers.dart';
-import 'package:scound_project_elancer/widgets/app_text_field.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
 import 'package:scound_project_elancer/widgets/code_text_field.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class ResetPasswordScreen extends StatefulWidget {
-  const ResetPasswordScreen({Key? key, required this.email}) : super(key: key);
+  const ResetPasswordScreen({Key? key, required this.phone}) : super(key: key);
 
-  final String email;
+  final String phone;
 
   @override
   _ResetPasswordScreenState createState() => _ResetPasswordScreenState();
@@ -74,7 +71,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
+      backgroundColor: color2,
       body: ListView(
         physics: const NeverScrollableScrollPhysics(),
         padding: EdgeInsets.symmetric(vertical: 67.h, horizontal: 28.w),
@@ -111,11 +108,8 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen>
           ),
           Text(AppLocalizations.of(context)!.phoneversup,
               style: TextStyle(color: color3, fontSize: 14.sp)),
-          SizedBox(
-            height: 8.h,
-          ),
-          Text(widget.email,
-              style: TextStyle(color: color3, fontSize: 14.sp)),
+          SizedBox(height: 4.h,),
+          Text(widget.phone),
           SizedBox(height: 28.h),
 
           Row(
@@ -167,21 +161,9 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen>
               ),
             ],
           ),
-          const SizedBox(height: 10),
-          AppTextField(
-            hint: 'Password',
-            textEditingController: _newPasswordTextController,
-            prefixIcon: Icons.lock,
-           // obscureText: true,
-          ),
            SizedBox(height: 10.h),
-          AppTextField(
-            hint: 'Password Confirmation',
-            textEditingController: _newPasswordConfirmationTextController,
-            prefixIcon: Icons.lock,
-            //obscureText: true,
-          ),
-           SizedBox(height: 20.h),
+          Center(child: Text(AppLocalizations.of(context)!.resendcode,style: TextStyle(color: color3,fontSize: 14.sp),)),
+           SizedBox(height: 22.h),
           ElevatedButton(
             onPressed: () async => await performResetPassword(),
             child: Row(
@@ -190,7 +172,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen>
                 Container(
                   margin: EdgeInsets.only(left: 21.w,right: 21.w),
                   child: Text(
-                    AppLocalizations.of(context)!.tcontunue,
+                    AppLocalizations.of(context)!.verifycode,
                     style: TextStyle(
                       fontSize: 12.sp,
                     ),
@@ -219,37 +201,20 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen>
       ),
     );
   }
-
   Future<void> performResetPassword() async {
-    if (checkData()) {
+    if (checkCode()) {
       await resetPassword();
     }
   }
-
-  bool checkData() {
-    if (checkCode() && checkPassword()) {
-      return true;
-    }
-    return false;
+  Future<void> resetPassword() async {
+    bool status = await AuthApiController().activePhone(
+      context,
+      phone: widget.phone,
+      code: _code!,
+      //password: _newPasswordTextController.text,
+    );
+    if (status) Navigator.of(context).pushNamed("/login_screen");
   }
-
-  bool checkPassword() {
-    if (_newPasswordTextController.text.isNotEmpty &&
-        _newPasswordConfirmationTextController.text.isNotEmpty) {
-      if (_newPasswordTextController.text ==
-          _newPasswordConfirmationTextController.text) {
-        return true;
-      }
-      showSnackBar(
-          context: context,
-          message: 'Password confirmation error!',
-          error: true);
-      return false;
-    }
-    showSnackBar(context: context, message: 'Enter new password!', error: true);
-    return false;
-  }
-
   bool checkCode() {
     if (_firstCodeTextController.text.isNotEmpty &&
         _secondCodeTextController.text.isNotEmpty &&
@@ -265,22 +230,10 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen>
     );
     return false;
   }
-
   String getVerificationCode() {
     return _code = _firstCodeTextController.text +
         _secondCodeTextController.text +
         _thirdCodeTextController.text +
         _fourthCodeTextController.text;
-  }
-
-
-  Future<void> resetPassword() async {
-    bool status = await AuthApiController().resetPassword(
-      context,
-      mobile: widget.email,
-      code: _code!,
-      password: _newPasswordTextController.text,
-    );
-    if (status) Navigator.pop(context);
   }
 }

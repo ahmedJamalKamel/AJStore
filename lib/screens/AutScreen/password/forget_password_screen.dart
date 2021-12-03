@@ -2,7 +2,9 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:scound_project_elancer/Them/colors.dart';
+import 'package:scound_project_elancer/api/controler/auth_api_controller.dart';
 import 'package:scound_project_elancer/helpers/helpers.dart';
+import 'package:scound_project_elancer/screens/AutScreen/password/reset_password_screen.dart';
 import 'package:scound_project_elancer/widgets/app_text_field.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -39,20 +41,6 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen>
         physics: const NeverScrollableScrollPhysics(),
         padding: EdgeInsets.symmetric(vertical: 67.h, horizontal: 28.w),
         children: [
-          // Container(
-          //   alignment: AlignmentDirectional.topStart,
-          //   child: CircleAvatar(
-          //     radius: 19.w,
-          //     child: Center(
-          //       child: Icon(
-          //         Icons.arrow_back_ios,
-          //         color: color1,
-          //         size: 15.w,
-          //       ),
-          //     ),
-          //     backgroundColor: color3.withOpacity(.2),
-          //   ),
-          // ),
           Row(
             children: [
               InkWell(
@@ -95,9 +83,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen>
           ),
           SizedBox(height: 84.h),
           ElevatedButton(
-            onPressed: () {
-              Navigator.of(context).pushNamed("/reset_password_screen");
-            },
+            onPressed: () async => await performForgetPassword(),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -132,5 +118,39 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen>
         ],
       ),
     );
+  }
+  Future<void> performForgetPassword() async {
+    if (checkData()) {
+      await forgetPassword();
+    }
+  }
+
+  bool checkData() {
+    if (_emailTextController.text.isNotEmpty) {
+      return true;
+    }
+    showSnackBar(
+      context: context,
+      message: 'Enter required data!',
+      error: true,
+    );
+    return false;
+  }
+
+  Future<void> forgetPassword() async {
+    bool status = await AuthApiController().forgetPassword(
+      context,
+      mobile: _emailTextController.text,
+    );
+    // if (status) Navigator.pushReplacementNamed(context, '/reset_password_screen');
+    if (status) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) =>
+              ResetPasswordScreen(email: _emailTextController.text),
+        ),
+      );
+    }
   }
 }

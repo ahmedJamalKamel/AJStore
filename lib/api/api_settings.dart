@@ -14,5 +14,8 @@ class ApiSettings
   static const storeApiKey="d8ecf007-bdbf-4836-8568-101c98a1b048";
   static const categories= _apiUrl +'categories';
   static const home= _apiUrl +'home';
+  static const cities= _apiUrl +'cities';
+  static const categoriesSup= _apiUrl +'categories/';
+  static const product= _apiUrl +'sub-categories/';
 
 }

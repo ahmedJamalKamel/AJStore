@@ -1,23 +1,24 @@
-class City {
+class CityData{
   late int id;
   late String nameEn;
   late String nameAr;
 
-  City();
+  CityData();
 
-  City.fromJson(Map<String, dynamic> json) {
+  CityData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     nameEn = json['name_en'];
     nameAr = json['name_ar'];
   }
-  City.fromMap(Map<String, dynamic> json) {
+  CityData.fromMap(Map<String, dynamic> json) {
     id = json['id'];
     nameEn = json['nameEn'];
     nameAr = json['nameEn'];
   }
+
+  ///Used to save data in a database table.
   Map<String, dynamic> toMap() {
     Map<String, dynamic> rowMap = <String, dynamic>{};
-   // rowMap['id'] = id;
     rowMap['nameEn'] = nameEn;
     rowMap['nameAr'] = nameAr;
     return rowMap;

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:scound_project_elancer/Them/colors.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 class Card04 extends StatelessWidget {
   const Card04({
     Key? key,
@@ -29,7 +30,30 @@ class Card04 extends StatelessWidget {
                       "imageSvg/Icon_save.svg",
                       // fit: BoxFit.scaleDown,
                     ),
-                  )
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(left: 15.w),
+                    child: Row(
+                      children: [
+                        Text("4.0"),
+                        Container(
+                          child: RatingBarIndicator(
+                            rating: 4,
+                            itemBuilder: (context, index) => Icon(
+                               Icons.star,
+                              color: Colors.amber,
+                            ),
+                            itemCount: 5,
+                            itemSize: 10.0.w,
+                            unratedColor: Colors.amber.withAlpha(50),
+                            direction: Axis.horizontal,
+                          ),
+                        ),
+                        SizedBox(width: 10.w,),
+                        Text("5,1k reviews",style: TextStyle(color: color3,fontSize: 12.sp),),
+                      ],
+                    ),
+                  ),
                 ],
               ),
             )

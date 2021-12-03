@@ -5,7 +5,7 @@ import 'famous_product.dart';
 import 'lastest_products.dart';
 
 class Data {
- late List<Slider> slider;
+ late List<SliderModel> slider;
  late List<CategoriesHome> categories;
  late List<LatestProducts> latestProducts;
  late List<FamousProducts> famousProducts;
@@ -15,27 +15,27 @@ class Data {
 
   Data.fromJson(Map<String, dynamic> json) {
     if (json['slider'] != null) {
-      slider = <Slider>[];
+      slider = <SliderModel>[];
       json['slider'].forEach((v) {
-        slider.add(new Slider.fromJson(v));
+        slider.add(SliderModel.fromJson(v));
       });
     }
     if (json['categories'] != null) {
       categories = <CategoriesHome>[];
       json['categories'].forEach((v) {
-        categories.add(new CategoriesHome.fromJson(v));
+        categories.add(CategoriesHome.fromJson(v));
       });
     }
     if (json['latest_products'] != null) {
       latestProducts = <LatestProducts>[];
       json['latest_products'].forEach((v) {
-        latestProducts.add(new LatestProducts.fromJson(v));
+        latestProducts.add(LatestProducts.fromJson(v));
       });
     }
     if (json['famous_products'] != null) {
       famousProducts = <FamousProducts>[];
       json['famous_products'].forEach((v) {
-        famousProducts.add(new FamousProducts.fromJson(v));
+        famousProducts.add(FamousProducts.fromJson(v));
       });
     }
   }
