@@ -9,6 +9,7 @@ import 'package:scound_project_elancer/screens/AutScreen/password/forget_passwor
 import 'package:scound_project_elancer/screens/AutScreen/code_active_screen.dart';
 import 'package:scound_project_elancer/screens/AutScreen/register_screen.dart';
 import 'package:scound_project_elancer/screens/Category/category_screen_op1.dart';
+import 'package:scound_project_elancer/screens/Category/category_screen_op11.dart';
 import 'package:scound_project_elancer/screens/Category/category_screen_op2.dart';
 import 'package:scound_project_elancer/screens/MainScreen/NaveScreens/main_screen.dart';
 import 'package:scound_project_elancer/screens/MainScreen/NaveScreens/saved_screen.dart';
@@ -57,10 +58,10 @@ class _MyAppState extends State<MyApp> {
             //'/reset_password_screen': (context) =>  ResetPasswordScreen(),
             '/main_screen': (context) =>  MainScreen(),
             '/saved_screen': (context) =>  SavedScreen(),
-           // '/category_screen_op2': (context) =>  CategoryScreenOp2(),
+           // '/category_screen_op11': (context) =>  CategoryScreenOP11(),
             '/category_screen_op1': (context) =>  CategoryScreenOP1(),
             '/home_screen': (context) =>  HomeScreen(),
-            '/single_product_op1': (context) =>  SingleProductOp1(),
+          //  '/single_product_op1': (context) =>  SingleProductOp1(),
             '/edit_my_account_screen': (context) =>  EditMyAccountScreen(),
           },
         );

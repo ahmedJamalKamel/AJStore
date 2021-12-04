@@ -1,13 +1,17 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:scound_project_elancer/Them/colors.dart';
+import 'package:scound_project_elancer/model/list_cat.dart';
+import 'package:scound_project_elancer/model/sup_categories.dart';
 class Card09 extends StatelessWidget {
-  const Card09({
+   Card09({
+  required this.supCategory,
     Key? key,
   }) : super(key: key);
-
+   SupCategory supCategory;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -23,7 +27,7 @@ class Card09 extends StatelessWidget {
               height: 219.h,
               child: Stack(
                 children: [
-                  Image.asset("image/card09.png"),
+                  SizedBox(height: 219.h,width: double.infinity,child: Image.network(supCategory.imageUrl,fit: BoxFit.fill,)),
                   Align(
                       alignment: AlignmentDirectional.topEnd,
                       child: Container(
@@ -44,11 +48,11 @@ class Card09 extends StatelessWidget {
                 ],
               ),
             ),
-            Text("Versace",style: TextStyle(color: color1,fontSize: 16.sp,fontWeight: FontWeight.bold),),
+            SizedBox(height: 10.h,),
+            Text(supCategory.nameEn,style: TextStyle(color: color1,fontSize: 16.sp,fontWeight: FontWeight.bold),),
             SizedBox(height: 4.h,),
-            Text("Chain Reaction Trainers",style: TextStyle(color: color3,fontSize: 16.sp),),
+            Text(supCategory.productsCount.toString()+" Items",style: TextStyle(color: color3,fontSize: 16.sp),),
             SizedBox(height: 4.h,),
-            Text("\$328",style: TextStyle(color: color1,fontSize: 12.sp,fontWeight: FontWeight.bold),),
           ],
         ),
       ),

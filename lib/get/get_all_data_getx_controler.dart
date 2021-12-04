@@ -21,24 +21,45 @@ class AllDataGetxControler extends GetxController
   RxBool loadingProduct = false.obs;
   final UserApiController _apiController=UserApiController();
   final HomeApiController _homeApiController=HomeApiController();
+  /////////////////// prodct
+  RxList<Product> prouduct=<Product>[].obs;
+  RxBool loding=false.obs;
+  //////
 
   static AllDataGetxControler get to => Get.find<AllDataGetxControler>();
   @override
   void onInit() {
     getCategory();
-    getSupCategory();
+    //getSupCategory();
     getLatestProducts();
     getSliderModel();
     super.onInit();
   } //CRUD
 
-  Future<void> getSupCategory() async {
+  Future<void> getSupCategory(String id) async {
+    supCategory.value.clear();
+    prouduct.value.clear();
+
     loadingsupCategory.value = true;
-    for(int i=0;i<categories.value.length;i++)
-    {
-      supCategory.value.addAll(await _apiController.getSupCategories(categories.value[i].id.toString()));
+    loding.value = true;
+    supCategory.value= await _apiController.getSupCategories(id);
+    loadingsupCategory.value = false;
+    // notifyListeners();
+    // update();
+    print("gatDataProduct");
+    for (int i = 0; i < AllDataGetxControler.to.supCategory.value.length; i++) {
+      prouduct.value.addAll(
+          await UserApiController().getProduct(supCategory.value[i].id.toString()));
     }
-    //city.value = await _apiController.getSupCategories(idcat);
+    print("gatDataProduct"+prouduct.value.length.toString());
+    loding.value = false;
+  }
+  Future<void> getSupCategory1(String id) async {
+    supCategory.value.clear();
+  //  prouduct.value.clear();
+    loadingsupCategory.value = true;
+  //  loding.value = true;
+    supCategory.value= await _apiController.getSupCategories(id);
     loadingsupCategory.value = false;
     // notifyListeners();
     // update();
@@ -79,6 +100,21 @@ class AllDataGetxControler extends GetxController
     // update();
   }
 
+  Future<void> gatDataProduct(String supcat)
+  async{
+    print("gatDataProduct");
+  //  getSupCategory(supcat);
+    if(!loadingsupCategory.value) {
+      loding.value = true;
+      for (int i = 0; i <
+          AllDataGetxControler.to.supCategory.value.length; i++) {
+        prouduct.value.addAll(
+            await UserApiController().getProduct(i.toString()));
+      }
+      print("gatDataProduct");
+      loding.value = false;
+    }
+  }
 
 
 }

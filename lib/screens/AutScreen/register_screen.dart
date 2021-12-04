@@ -20,6 +20,7 @@ class _RegisterScreenState extends State<RegisterScreen>with Helpers {
   List<String>items=[];
   String dropdownvalue = '';
   String indexcity="1";
+
   void getData()
   {
     for(int i=0;i<CityrGetxController.to.city.value.length;i++)
@@ -165,7 +166,6 @@ class _RegisterScreenState extends State<RegisterScreen>with Helpers {
             }
             ).toList(),
             onChanged: (value) {
-
               setState(() {
                 dropdownvalue = value.toString();
                 for(int i=0;i<items.length;i++)

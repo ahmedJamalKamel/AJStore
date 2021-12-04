@@ -22,13 +22,13 @@ class AuthApiController with Helpers {
       'STORE_API_KEY':ApiSettings.storeApiKey,
       'city_id':student.city_id
     });
+    print("ahmed "+response.statusCode.toString());
     if (response.statusCode == 201) {
     {  showSnackBar(
         context: context,
         message: jsonDecode(response.body)['message'],
       );
     print(jsonDecode(response.body)['code']);
-
 
       return true;
     }
@@ -118,21 +118,6 @@ class AuthApiController with Helpers {
     }
     return false;
   }
-
-  // Future<bool> logout() async {
-  //   var url = Uri.parse(ApiSettings.logout);
-  //   var response = await http.get(url, headers: {
-  //     HttpHeaders.authorizationHeader: SharedPrefController().token,
-  //     HttpHeaders.acceptHeader: 'application/json'
-  //   });
-  //   print(response.statusCode);
-  //   if (response.statusCode == 200 || response.statusCode == 401) {
-  //     SharedPrefController().clear();
-  //     return true;
-  //   }
-  //   return false;
-  // }
-
   Future<bool> forgetPassword(BuildContext context,
       {required String mobile}) async {
     var url = Uri.parse(ApiSettings.forgetPassword);
@@ -202,4 +187,5 @@ class AuthApiController with Helpers {
     }
     return false;
   }
+
 }

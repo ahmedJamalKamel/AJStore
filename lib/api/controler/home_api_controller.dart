@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:scound_project_elancer/model/HomeMobel/categories_home.dart';
-import 'package:scound_project_elancer/model/HomeMobel/data.dart';
+// import 'package:scound_project_elancer/model/HomeMobel/data.dart';
 import 'package:scound_project_elancer/model/HomeMobel/famous_product.dart';
 import 'package:scound_project_elancer/model/HomeMobel/home_base.dart';
 import 'package:scound_project_elancer/model/HomeMobel/lastest_products.dart';

@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:scound_project_elancer/Them/colors.dart';
+import 'package:scound_project_elancer/get/get_all_data_getx_controler.dart';
+import 'package:scound_project_elancer/model/list_cat.dart';
 import 'package:scound_project_elancer/widgets/Card/card09.dart';
 
-class CategoryScreenOP1 extends StatefulWidget {
-  const CategoryScreenOP1({Key? key}) : super(key: key);
-
+class CategoryScreenOP11 extends StatefulWidget {
+   CategoryScreenOP11({Key? key,required this.listcat}) : super(key: key);
+  ListCat listcat;
   @override
-  _CategoryScreenOP1State createState() => _CategoryScreenOP1State();
+  _CategoryScreenOP11State createState() => _CategoryScreenOP11State();
 }
 
-class _CategoryScreenOP1State extends State<CategoryScreenOP1> {
+class _CategoryScreenOP11State extends State<CategoryScreenOP11> {
   bool page1 = true;
   bool page2 = false;
   bool page3 = false;
@@ -19,11 +22,11 @@ class _CategoryScreenOP1State extends State<CategoryScreenOP1> {
   List<bool> page=[true,false,false,false];
   @override
   Widget build(BuildContext context) {
-    final PageController controller = PageController(
-      initialPage: 0,
-      viewportFraction: .6,
-      keepPage: true,
-    );
+    // final PageController controller = PageController(
+    //   initialPage: 0,
+    //   viewportFraction: .6,
+    //   keepPage: true,
+    // );
     return Scaffold(
       body: Stack(
         children: [
@@ -65,59 +68,50 @@ class _CategoryScreenOP1State extends State<CategoryScreenOP1> {
               SizedBox(
                 height: 46.h,
               ),
-              SizedBox(
-                height: 72.h,
-                child: PageView(
-                  onPageChanged: (value)
-                  {
-                    setState(()
-                    {
-                      page=[false,false,false,false];
-                      page[value]=!page[value];
-                    }
-                    );
-                  },
-
-                  /// [PageView.scrollDirection] defaults to [Axis.horizontal].
-                  /// Use [Axis.vertical] to scroll vertically.
-                  scrollDirection: Axis.horizontal,
-                  controller: controller,
-                  children: <Widget>[
-                    Center(
-                        //margin: EdgeInsets.only(left: 37.w, right: 37.w),
-                        child: Text(
-                      "Gadgets",
-                      style:
-                          TextStyle(fontSize: 50.sp, fontWeight: FontWeight.bold,color: page[0]?color1:color3),
-                    )),
-                    Center(
-                        // margin: EdgeInsets.only(left: 37.w, right: 37.w),
-                        child: Text(
-                      "Shoes",
-                      style:
-                          TextStyle(fontSize: 50.sp, fontWeight: FontWeight.bold,color: page[1]?color1:color3),
-                    )),
-                    Center(
-                        //  margin: EdgeInsets.only(left: 37.w, right: 37.w),
-                        child: Text(
-                      "Lifestyle",
-                      style:
-                          TextStyle(fontSize: 50.sp, fontWeight: FontWeight.bold,color: page[2]?color1:color3),
-                    )),
-                    Center(
-                        // margin: EdgeInsets.only(left: 37.w, right: 37.w),
-                        child: Text(
-                      "Gadgets",
-                      style:
-                          TextStyle(fontSize: 50.sp, fontWeight: FontWeight.bold,color: page[3]?color1:color3),
-                    ),
-                    )
-                  ],
-                ),
-              ),
+              Center(
+                //margin: EdgeInsets.only(left: 37.w, right: 37.w),
+                  child: Text(
+                    widget.listcat.nameEn,
+                    style:
+                    TextStyle(fontSize: 40.sp, fontWeight: FontWeight.bold,color: page[0]?color1:color3),
+                  )),
               SizedBox(
                 height: 30.h,
               ),
+              Obx(()
+              {
+                return !AllDataGetxControler.to.loadingsupCategory.value &&
+                    AllDataGetxControler.to.supCategory.value.isNotEmpty
+                    ? Expanded(
+                  child: ListView.builder(
+                    padding: EdgeInsets.symmetric(horizontal: 28.w),
+                    itemCount: AllDataGetxControler.to.supCategory.value.length,
+                    itemBuilder: (context, index) {
+                      return InkWell(onTap: (){
+
+                      },child: Card09(supCategory:AllDataGetxControler.to.supCategory.value[index] ,));
+                    },
+                  ),
+                ):
+                !AllDataGetxControler.to.loadingsupCategory.value &&
+                    AllDataGetxControler.to.supCategory.value.isEmpty
+                    ? Center(
+                  child: Column(
+                    children: const [
+                      Icon(Icons.warning, size: 80),
+                      Text(
+                        'NO DATA',
+                        style: TextStyle(
+                          color: Colors.grey,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 24,
+                        ),
+                      )
+                    ],
+                  ),
+                )
+                    : Center(child: CircularProgressIndicator());
+              }),
               // Expanded(
               //   child: ListView.builder(
               //     padding: EdgeInsets.symmetric(horizontal: 28.w),
@@ -164,5 +158,12 @@ class _CategoryScreenOP1State extends State<CategoryScreenOP1> {
         ],
       ),
     );
+  }
+
+  @override
+  void initState() {
+    AllDataGetxControler.to.getSupCategory1(widget.listcat.id.toString());
+    // TODO: implement initState
+    super.initState();
   }
 }

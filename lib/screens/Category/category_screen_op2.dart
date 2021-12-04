@@ -6,13 +6,15 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:scound_project_elancer/Them/colors.dart';
 import 'package:scound_project_elancer/api/controler/user_api_controller.dart';
 import 'package:scound_project_elancer/get/get_all_data_getx_controler.dart';
+import 'package:scound_project_elancer/model/list_cat.dart';
+import 'package:scound_project_elancer/model/product_model.dart';
 import 'package:scound_project_elancer/model/sup_categories.dart';
 import 'package:scound_project_elancer/widgets/Card/card01.dart';
 import 'package:scound_project_elancer/widgets/NavButtom/nav_filter.dart';
 
 class CategoryScreenOp2 extends StatefulWidget {
-  CategoryScreenOp2({Key? key, required this.id}) : super(key: key);
-  String id;
+  CategoryScreenOp2({Key? key, required this.cat}) : super(key: key);
+  ListCat cat;
 
   @override
   _CategoryScreenOp2State createState() => _CategoryScreenOp2State();
@@ -21,26 +23,33 @@ class CategoryScreenOp2 extends StatefulWidget {
 class _CategoryScreenOp2State extends State<CategoryScreenOp2>
   //  with SingleTickerProviderStateMixin
 {
- // late TabController _tabController;
-
-  // late  List<SupCategory> supCat;
-  //  void getData()
-  //  async {
-  //    supCat =await UserApiController().getSupCategories(widget.id);
-  //  }
+  // List<Product> prouduct=<Product>[];
+  // bool loding=true;
+  // void gatData()
+  // async{
+  //   setState(() {
+  //     loding=true;  });
+  //     for(int i=0;i<AllDataGetxControler.to.supCategory.value.length;i++)
+  //     {
+  //       prouduct.addAll(await UserApiController().getProduct(i.toString()));
+  //   }
+  //     setState(() {
+  //       loding=false;
+  //     });
+  //
+  // }
   @override
   void initState() {
-    //  getData();
-    //  supCat =await UserApiController().getSupCategories(widget.id);
-    AllDataGetxControler.to.getSupCategory();
+    print("initState " +widget.cat.id.toString());
+    AllDataGetxControler.to.getSupCategory(widget.cat.id.toString());
+   // AllDataGetxControler.to.gatDataProduct(widget.id);
     // TODO: implement initState
     super.initState();
- //   _tabController = TabController(length: 2, vsync: this);
   }
 
   @override
   Widget build(BuildContext context) {
-    // getData();
+
     return Scaffold(
       body: Stack(
         children: [
@@ -58,8 +67,8 @@ class _CategoryScreenOp2State extends State<CategoryScreenOp2>
                                 bottomRight: Radius.circular(30.w))),
                         height: 281.h,
                         width: MediaQuery.of(context).size.width,
-                        child: Image.asset(
-                          "image/BackgroundCatLifestyle.png",
+                        child: Image.network(
+                          widget.cat.imageUrl,
                           fit: BoxFit.fill,
                         )),
                     Container(
@@ -75,7 +84,7 @@ class _CategoryScreenOp2State extends State<CategoryScreenOp2>
                       margin: EdgeInsets.only(top: 125.h),
                       child: Center(
                           child: Text(
-                        "Lifestyle",
+                            widget.cat.nameEn,
                         style: TextStyle(
                             color: color2,
                             fontWeight: FontWeight.bold,
@@ -119,52 +128,32 @@ class _CategoryScreenOp2State extends State<CategoryScreenOp2>
               SizedBox(
                 height: 18.h,
               ),
-              // TabBar(
-              //     onTap: (int selectedTabIndex) {},
-              //     padding: EdgeInsets.symmetric(horizontal: 24.w),
-              //     //indicatorColor: MainColor,
-              //     // labelStyle: TextStyle(color: Colors.black),
-              //     labelColor: Colors.black,
-              //     controller: _tabController,
-              //     // unselectedLabelColor: Text3,
-              //     tabs: [
-              //       Tab(
-              //         text: "mmmm",
-              //       ),
-              //       Tab(
-              //         text: "supCat[1].nameEn",
-              //       ),
-              //     ]),
-              // SizedBox(
-              //   height: 18.h,
-              // ),
               Obx(() {
-                return Expanded(
-                  child: !AllDataGetxControler.to.loadingsupCategory.value &&
-                          AllDataGetxControler.to.supCategory.isNotEmpty
+               return  Expanded(
+                  child: !AllDataGetxControler.to.loding.value &&
+                      AllDataGetxControler.to.prouduct.value.isNotEmpty
                       ? GridView.builder(
-                          itemCount: AllDataGetxControler.to.supCategory.length,
+                          itemCount: AllDataGetxControler.to.prouduct.value.length,
                           padding: EdgeInsets.symmetric(horizontal: 28.w),
                           gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
+                               SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 2,
                             mainAxisSpacing: 10,
-                            childAspectRatio: 154 / 220,
+                            childAspectRatio: 154.w / 230.h,
                             //  crossAxisSpacing: 154/220,
                             crossAxisSpacing: 10,
                           ),
                           itemBuilder: (context, index) {
                             return Card01(
-                              image: AllDataGetxControler
-                                  .to.supCategory[index].imageUrl,
-                              name: AllDataGetxControler
-                                  .to.supCategory[index].nameEn,
+                              image: AllDataGetxControler.to.prouduct.value[index].imageUrl,
+                              name:   AllDataGetxControler.to.prouduct.value[index].nameEn,
+                              price: AllDataGetxControler.to.prouduct.value[index].price.toString(),
                               m: true,
                             );
                           },
                         )
-                      : !AllDataGetxControler.to.loadingsupCategory.value &&
-                              AllDataGetxControler.to.supCategory.isEmpty
+                      : !AllDataGetxControler.to.loding.value &&
+                      AllDataGetxControler.to.prouduct.value.isEmpty
                           ? Center(
                               child: Column(
                                 children: const [

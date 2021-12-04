@@ -64,4 +64,5 @@ class CityrGetxController extends GetxController {
     }
     return updated;
   }
+
 }

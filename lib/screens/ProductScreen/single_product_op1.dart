@@ -5,10 +5,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:scound_project_elancer/Them/colors.dart';
+import 'package:scound_project_elancer/model/product_model.dart';
 
 class SingleProductOp1 extends StatefulWidget {
-  const SingleProductOp1({Key? key}) : super(key: key);
-
+   SingleProductOp1({Key? key,required this.product}) : super(key: key);
+  Product product;
   @override
   _SingleProductOp1State createState() => _SingleProductOp1State();
 }
@@ -21,8 +22,8 @@ class _SingleProductOp1State extends State<SingleProductOp1> {
         children: [
           Container(
             height: 627.h,
-            child: Image.asset(
-              "image/BackgroundImageSingleProduct.png",
+            child: Image.network(
+              widget.product.imageUrl,
               fit: BoxFit.fill,
             ),
           ),
@@ -93,7 +94,7 @@ class _SingleProductOp1State extends State<SingleProductOp1> {
                           Container(
                             child: RatingBarIndicator(
                               rating: 4,
-                              itemBuilder: (context, index) => Icon(
+                              itemBuilder: (context, index) => const Icon(
                                 Icons.star,
                                 color: Colors.amber,
                               ),

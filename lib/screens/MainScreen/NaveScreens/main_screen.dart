@@ -11,7 +11,10 @@ import 'package:scound_project_elancer/get/get_all_data_getx_controler.dart';
 import 'package:scound_project_elancer/model/HomeMobel/lastest_products.dart';
 import 'package:scound_project_elancer/model/HomeMobel/slider.dart';
 import 'package:scound_project_elancer/model/list_cat.dart';
+import 'package:scound_project_elancer/model/product_model.dart';
+import 'package:scound_project_elancer/screens/Category/category_screen_op11.dart';
 import 'package:scound_project_elancer/screens/Category/category_screen_op2.dart';
+import 'package:scound_project_elancer/screens/ProductScreen/single_product_op1.dart';
 import 'package:scound_project_elancer/widgets/Card/card01.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:scound_project_elancer/widgets/Card/card04.dart';
@@ -30,22 +33,8 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   final GlobalKey<ScaffoldState> _scaffoldkey = new GlobalKey<ScaffoldState>();
-  late Future<List<ListCat>> _future;
-  List<ListCat> _categories = <ListCat>[];
-
-  /////
-  late Future<List<LatestProducts>> _futureP;
-  List<LatestProducts> _latestProducts = <LatestProducts>[];
-
-  ////
-  late Future<List<SliderModel>> _futureS;
-  List<SliderModel> _SliderModel = <SliderModel>[];
-
   @override
   void initState() {
-    _future = UserApiController().getCategories();
-    _futureP = HomeApiController().getDataLatestProducts();
-    _futureS = HomeApiController().getDataSlider();
     // TODO: implement initState
     super.initState();
   }
@@ -104,22 +93,6 @@ class _MainScreenState extends State<MainScreen> {
             children: [
               Column(
                 children: [
-                  // InkWell(
-                  //   onTap: () {
-                  //     Navigator.of(context).pushNamed("/category_screen_op1");
-                  //   },
-                  //   child: Container(
-                  //     clipBehavior: Clip.antiAlias,
-                  //     decoration: BoxDecoration(
-                  //         borderRadius: BorderRadius.circular(20)),
-                  //     height: 202.h,
-                  //     width: 319.w,
-                  //     child: Image.asset(
-                  //       "image/BackgroundSlider.png",
-                  //       fit: BoxFit.fill,
-                  //     ),
-                  //   ),
-                  // ),
                   !AllDataGetxControler.to.loadingSliderModel.value &&
                           AllDataGetxControler.to.sliderModel.isNotEmpty
                       ? CarouselSlider.builder(
@@ -164,57 +137,6 @@ class _MainScreenState extends State<MainScreen> {
                               ),
                             )
                           : Center(child: CircularProgressIndicator()),
-                  // FutureBuilder<List<SliderModel>>(
-                  //   future: _futureS,
-                  //   builder: (context, snapshot) {
-                  //     if (snapshot.connectionState == ConnectionState.waiting) {
-                  //       return Center(child: CircularProgressIndicator());
-                  //     } else if (snapshot.hasData &&
-                  //         snapshot.data!.isNotEmpty) {
-                  //       _SliderModel = snapshot.data ?? [];
-                  //       return CarouselSlider.builder(
-                  //         options: CarouselOptions(
-                  //           height: 202.h,
-                  //           autoPlay: true,
-                  //           enlargeCenterPage: true,
-                  //           viewportFraction: 0.9,
-                  //           aspectRatio: 2.0,
-                  //           initialPage: 2,
-                  //         ),
-                  //         itemCount: _SliderModel.length,
-                  //         itemBuilder: (BuildContext context, int itemIndex,
-                  //                 int pageViewIndex) =>
-                  //             Container(
-                  //           clipBehavior: Clip.antiAlias,
-                  //           decoration: BoxDecoration(
-                  //               borderRadius: BorderRadius.circular(20)),
-                  //           height: 202.h,
-                  //           width: 319.w,
-                  //           child: Image.network(
-                  //             _SliderModel[itemIndex].imageUrl,
-                  //             fit: BoxFit.fill,
-                  //           ),
-                  //         ),
-                  //       );
-                  //     } else {
-                  //       return Center(
-                  //         child: Column(
-                  //           children: const [
-                  //             Icon(Icons.warning, size: 80),
-                  //             Text(
-                  //               'NO DATA',
-                  //               style: TextStyle(
-                  //                 color: Colors.grey,
-                  //                 fontWeight: FontWeight.bold,
-                  //                 fontSize: 24,
-                  //               ),
-                  //             )
-                  //           ],
-                  //         ),
-                  //       );
-                  //     }
-                  //   },
-                  // ),
                   SizedBox(
                     height: 30.h,
                   ),
@@ -231,7 +153,7 @@ class _MainScreenState extends State<MainScreen> {
                       InkWell(
                         onTap: () {
                           Navigator.of(context)
-                              .pushNamed("/category_screen_op1");
+                              .pushNamed("/category_screen_op11");
                         },
                         child: SizedBox(
                             height: 20.h,
@@ -247,75 +169,65 @@ class _MainScreenState extends State<MainScreen> {
                   ),
                   Container(
                     height: 120.h,
-                    child: FutureBuilder<List<ListCat>>(
-                      future: _future,
-                      builder: (context, snapshot) {
-                        if (snapshot.connectionState ==
-                            ConnectionState.waiting) {
-                          return Center(child: CircularProgressIndicator());
-                        } else if (snapshot.hasData &&
-                            snapshot.data!.isNotEmpty) {
-                          _categories = snapshot.data ?? [];
-                          return ListView.builder(
-                            padding: EdgeInsets.only(left: 10),
-                            itemCount: _categories.length,
-                            scrollDirection: Axis.horizontal,
-                            itemBuilder: (context, index) {
-                              return InkWell(
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => CategoryScreenOp2(
-                                        id: _categories[index].id.toString(),
-                                      ),
-                                    ),
-                                  );
-                                },
-                                child: Container(
-                                  width: 100.w,
-                                  child: ListTile(
-                                    title: Container(
-                                        clipBehavior: Clip.antiAlias,
-                                        decoration: BoxDecoration(
-                                            color: HexColor("#979797"),
-                                            borderRadius:
-                                                BorderRadius.circular(30.w)),
-                                        child: Image.network(
-                                            _categories[index].imageUrl)),
-                                    subtitle: Text(
-                                      _categories[index].nameEn,
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        fontSize: 11.5.sp,
-                                        color: color1,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              );
-                            },
-                          );
-                        } else {
-                          return Center(
-                            child: Column(
-                              children: const [
-                                Icon(Icons.warning, size: 80),
-                                Text(
-                                  'NO DATA',
-                                  style: TextStyle(
-                                    color: Colors.grey,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 24,
-                                  ),
-                                )
-                              ],
+                    child:!AllDataGetxControler.to.loadingsupCategory.value &&
+                      AllDataGetxControler.to.categories.isNotEmpty
+                      ?  ListView.builder(
+                    padding: EdgeInsets.only(left: 10),
+                    itemCount:  AllDataGetxControler.to.categories.length,
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (context, index) {
+                      return InkWell(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => CategoryScreenOP11(
+                                listcat:  AllDataGetxControler.to.categories.value[index],
+                              ),
                             ),
                           );
-                        }
-                      },
+                        },
+                        child: Container(
+                          width: 100.w,
+                          child: ListTile(
+                            title: Container(
+                                clipBehavior: Clip.antiAlias,
+                                decoration: BoxDecoration(
+                                    color: HexColor("#979797"),
+                                    borderRadius:
+                                    BorderRadius.circular(30.w)),
+                                child: Image.network(
+                                    AllDataGetxControler.to.categories[index].imageUrl)),
+                            subtitle: Text(
+                              AllDataGetxControler.to.categories[index].nameEn,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: 11.5.sp,
+                                color: color1,
+                              ),
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  ) :!AllDataGetxControler.to.loadingsupCategory.value &&
+                      AllDataGetxControler.to.categories.isEmpty
+                      ? Center(
+                    child: Column(
+                      children: const [
+                        Icon(Icons.warning, size: 80),
+                        Text(
+                          'NO DATA',
+                          style: TextStyle(
+                            color: Colors.grey,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 24,
+                          ),
+                        )
+                      ],
                     ),
-                  ),
+                  )
+                      : Center(child: CircularProgressIndicator()),),
                   SizedBox(
                     height: 20.h,
                   ),
@@ -327,61 +239,70 @@ class _MainScreenState extends State<MainScreen> {
                         fontSize: 16.sp,
                         fontWeight: FontWeight.bold),
                   )),
-                  Expanded(
-                    child: FutureBuilder<List<LatestProducts>>(
-                      future: _futureP,
-                      builder: (context, snapshot) {
-                        if (snapshot.connectionState ==
-                            ConnectionState.waiting) {
-                          return Center(child: CircularProgressIndicator());
-                        } else if (snapshot.hasData &&
-                            snapshot.data!.isNotEmpty) {
-                          _latestProducts = snapshot.data ?? [];
-                          return GridView.builder(
-                            gridDelegate:
-                                const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
-                              mainAxisSpacing: 10,
-                              childAspectRatio: 154 / 220,
-                              //  crossAxisSpacing: 154/220,
-                              crossAxisSpacing: 10,
-                            ),
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 10, vertical: 10),
-                            itemCount: _latestProducts.length,
-                            itemBuilder: (context, index) {
-                              return InkWell(
-                                onTap: () {
-                                  Navigator.of(context)
-                                      .pushNamed("/single_product_op1");
-                                },
-                                child: Card01(
-                                  image: _latestProducts[index].imageUrl,
-                                  name: _latestProducts[index].nameEn,
-                                ),
-                              );
-                            },
-                          );
-                        } else {
-                          return Center(
-                            child: Column(
-                              children: const [
-                                Icon(Icons.warning, size: 80),
-                                Text(
-                                  'NO DATA',
-                                  style: TextStyle(
-                                    color: Colors.grey,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 24,
-                                  ),
-                                )
-                              ],
-                            ),
-                          );
-                        }
-                      },
+                  Expanded(child:!AllDataGetxControler.to.loadingLatestProducts.value &&
+                      AllDataGetxControler.to.latestProducts.isNotEmpty
+                      ?GridView.builder(
+                    gridDelegate:
+                    const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      mainAxisSpacing: 10,
+                      childAspectRatio: 154 / 220,
+                      //  crossAxisSpacing: 154/220,
+                      crossAxisSpacing: 10,
                     ),
-                  ),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 10, vertical: 10),
+                    itemCount:  AllDataGetxControler.to.latestProducts.length,
+                    itemBuilder: (context, index) {
+                      return InkWell(
+                        onTap: () {
+                          Product p= Product();
+                          p.price=AllDataGetxControler.to.latestProducts.value[index].price;
+                          p.nameEn=AllDataGetxControler.to.latestProducts.value[index].nameEn;
+                          p.imageUrl=AllDataGetxControler.to.latestProducts.value[index].imageUrl;
+                          p.id=AllDataGetxControler.to.latestProducts.value[index].id;
+                          p.infoAr=AllDataGetxControler.to.latestProducts.value[index].infoAr;
+                          p.isFavorite=AllDataGetxControler.to.latestProducts.value[index].isFavorite;
+                          p.infoEn=AllDataGetxControler.to.latestProducts.value[index].infoEn;
+                          p.nameAr=AllDataGetxControler.to.latestProducts.value[index].nameAr;
+                          p.offerPrice=AllDataGetxControler.to.latestProducts.value[index].offerPrice;
+                          p.overalRate=AllDataGetxControler.to.latestProducts.value[index].overalRate;
+                          p.productRate=AllDataGetxControler.to.latestProducts.value[index].productRate;
+                          p.quantity=AllDataGetxControler.to.latestProducts.value[index].quantity;
+                          p.subCategoryId=AllDataGetxControler.to.latestProducts.value[index].subCategoryId;
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => SingleProductOp1(
+                                product: p,
+                              ),
+                            ),
+                          );
+                        },
+                        child: Card01(
+                          image:  AllDataGetxControler.to.latestProducts[index].imageUrl,
+                          name:  AllDataGetxControler.to.latestProducts[index].nameEn,
+                        ),
+                      );
+                    },
+                  ) : !AllDataGetxControler.to.loadingLatestProducts.value &&
+                      AllDataGetxControler.to.latestProducts.isEmpty
+                      ? Center(
+                    child: Column(
+                      children: const [
+                        Icon(Icons.warning, size: 80),
+                        Text(
+                          'NO DATA',
+                          style: TextStyle(
+                            color: Colors.grey,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 24,
+                          ),
+                        )
+                      ],
+                    ),
+                  )
+                      : Center(child: CircularProgressIndicator()),),
                 ],
               ),
             ],

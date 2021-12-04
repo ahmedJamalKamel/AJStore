@@ -55,8 +55,10 @@ class UserApiController with Helpers{
           HttpHeaders.authorizationHeader:SharedPrefController().token
         }
     );
+    print("ahmed UserApiController"+response.statusCode.toString());
+    print("ahmed UserApiController"+url.toString());
     if (response.statusCode == 200) {
-     // print("ahmed UserApiController"+response.statusCode.toString());
+      print("ahmed UserApiController"+response.statusCode.toString());
       var categoriesJsonArray = jsonDecode(response.body)['list'] as List;
      // print(jsonDecode(response.body)['list'].toString());
       return categoriesJsonArray
