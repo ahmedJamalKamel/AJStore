@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.scound_project_elancer">
+
    <application
         android:label="scound_project_elancer"
         android:icon="@mipmap/ic_launcher">

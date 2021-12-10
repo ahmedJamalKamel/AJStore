@@ -4,6 +4,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:scound_project_elancer/api/controler/user_api_controller.dart';
 import 'package:scound_project_elancer/get/author_getx_controller.dart';
+import 'package:scound_project_elancer/get/favorite_getx_controller.dart';
 import 'package:scound_project_elancer/get/get_all_data_getx_controler.dart';
 import 'package:scound_project_elancer/model/city.dart';
 import 'package:scound_project_elancer/model/model_city_todata.dart';
@@ -17,6 +18,7 @@ class LaunchScreen extends StatefulWidget {
 }
 
 class _LaunchScreenState extends State<LaunchScreen> {
+  final CityrGetxController _authorGetxController = Get.put<CityrGetxController>(CityrGetxController());
 
   void getData()
   async {
@@ -29,7 +31,7 @@ class _LaunchScreenState extends State<LaunchScreen> {
         CityrGetxController.to.createContact(list[i]);
       }
     }
-    SharedPrefController().getCity();
+    SharedPrefController().ugetCity;
 
   }
 
@@ -41,7 +43,7 @@ class _LaunchScreenState extends State<LaunchScreen> {
     }
     if(SharedPrefController().loggedIn){
       final AllDataGetxControler _allDataGetxControler = Get.put<AllDataGetxControler>(AllDataGetxControler());
-
+      final FavoriteGetXController _FavoriteGetxControler = Get.put<FavoriteGetXController>(FavoriteGetXController());
     }
 
     // TODO: implement initState

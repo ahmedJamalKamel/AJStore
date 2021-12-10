@@ -17,5 +17,16 @@ class ApiSettings
   static const cities= _apiUrl +'cities';
   static const categoriesSup= _apiUrl +'categories/';
   static const product= _apiUrl +'sub-categories/';
+  static const productDetales= _apiUrl +'products/';
+  static const favoriteProducts= _apiUrl +'favorite-products';
+  static const updateProfile= _apiUrl +'auth/update-profile';
+  static const contactRequests= _apiUrl +'contact-requests';
+  static const faqs= _apiUrl +'faqs';
+  static const productsRate= _apiUrl +'products/rate';
+  //// setting for payment
+  static const addresses= _apiUrl +'addresses';
+  static const paymentcards= _apiUrl +'payment-cards';
+  static const orders= _apiUrl +'orders';
+
 
 }

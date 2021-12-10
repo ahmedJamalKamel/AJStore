@@ -9,25 +9,36 @@ class AppTextField extends StatelessWidget {
     required this.prefixIcon,
     this.textInputType = TextInputType.name,
     this.se=false,
-    this.color
+    this.ticket=true,
+    this.color,
+    this.line=1,
+    this.numper=100,
+    this.secere=false
   }) : super(key: key);
-
+  final int line;
   final TextEditingController textEditingController;
   final String hint;
   final IconData prefixIcon;
   final TextInputType textInputType;
  final bool se;
+ final bool ticket;
  final Color? color;
+ final int numper;
+ final bool secere;
   @override
   Widget build(BuildContext context) {
     return TextField(
       controller: textEditingController,
       keyboardType: textInputType,
       obscureText:se ,
+      maxLines:ticket?1:line,
+      maxLength: numper,
+
       decoration: InputDecoration(
         hintText: hint,
+
         hintStyle: TextStyle(color: Colors.grey.withOpacity(.5)),
-        prefixIcon: Icon(prefixIcon,color: color,),
+        prefixIcon: ticket?Icon(prefixIcon,color: color,):SizedBox(),
         enabledBorder: outlineBorder(),
         focusedBorder: outlineBorder(color: Colors.blue)
       ),

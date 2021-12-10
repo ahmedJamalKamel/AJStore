@@ -1,3 +1,5 @@
+import 'package:scound_project_elancer/prefs/shared_pref_controller.dart';
+
 class Product {
  late int id;
  late String nameEn;
@@ -6,13 +8,14 @@ class Product {
  late String infoAr;
  late int price;
  late int quantity;
- late int overalRate;
+ late var overalRate;
  late int subCategoryId;
- late int productRate;
+ late var productRate;
  late Null offerPrice;
  late bool isFavorite;
  late String imageUrl;
-
+ String get name =>SharedPrefController().language=="ar"?nameAr:nameEn;
+ String get info =>SharedPrefController().language=="ar"?nameAr:infoEn;
 Product();
   Product.fromJson(Map<String, dynamic> json) {
     id = json['id'];

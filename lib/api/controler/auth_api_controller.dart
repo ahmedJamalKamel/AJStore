@@ -23,6 +23,8 @@ class AuthApiController with Helpers {
       'city_id':student.city_id
     });
     print("ahmed "+response.statusCode.toString());
+    print("ahmed "+jsonDecode(response.body).toString());
+
     if (response.statusCode == 201) {
     {  showSnackBar(
         context: context,
@@ -57,7 +59,7 @@ class AuthApiController with Helpers {
       //TODO: SHARED PREFERENCES - SAVE LOGGED IN USER DATA!!
       var jsonObject = jsonDecode(response.body)['data'];
       User student = User.fromJson(jsonObject);
-      SharedPrefController().save(student: student);
+    await  SharedPrefController().save(student: student);
       showSnackBar(
         context: context,
         message: jsonDecode(response.body)['message'],
@@ -100,13 +102,6 @@ class AuthApiController with Helpers {
     );
     if (response.statusCode == 200) {
       //TODO: SHARED PREFERENCES - SAVE LOGGED IN USER DATA!!
-     // var jsonObject = jsonDecode(response.body)['data'];
-     //  User student = User.fromJson(jsonObject);
-     // SharedPrefController().save(student: student);
-     //  showSnackBar(
-     //    context: context,
-     //    message: jsonDecode(response.body)['message'],
-     //  );
       return true;
     } else if (response.statusCode == 400) {
       print("ahmed11");

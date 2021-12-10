@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:scound_project_elancer/Them/colors.dart';
 import 'package:scound_project_elancer/api/controler/auth_api_controller.dart';
@@ -33,8 +34,16 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   final GlobalKey<ScaffoldState> _scaffoldkey = new GlobalKey<ScaffoldState>();
+  void data()
+  async{
+   await AllDataGetxControler.to.getCategory();
+   await AllDataGetxControler.to.getLatestProducts();
+   await AllDataGetxControler.to.getSliderModel();
+   await AllDataGetxControler.to.getAllProduct();
+  }
   @override
   void initState() {
+   // data();
     // TODO: implement initState
     super.initState();
   }
@@ -71,7 +80,7 @@ class _MainScreenState extends State<MainScreen> {
                     width: 10.w,
                   ),
                   InkWell(
-                    onTap: () async => await logout(context),
+                    // onTap: () async => await logout(context),
                     child: Container(
                         height: 32.h,
                         width: 32.w,
@@ -87,131 +96,39 @@ class _MainScreenState extends State<MainScreen> {
       drawer: Drawer(),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 28.w, vertical: 28.h),
-        child: Container(
-          //width: ,
-          child: Stack(
-            children: [
-              Column(
+        child: Obx(
+            ()
+            {
+              return ListView(
                 children: [
                   !AllDataGetxControler.to.loadingSliderModel.value &&
-                          AllDataGetxControler.to.sliderModel.isNotEmpty
+                      AllDataGetxControler.to.sliderModel.isNotEmpty
                       ? CarouselSlider.builder(
-                          options: CarouselOptions(
-                            height: 202.h,
-                            autoPlay: true,
-                            enlargeCenterPage: true,
-                            viewportFraction: 0.9,
-                            aspectRatio: 2.0,
-                            initialPage: 2,
-                          ),
-                          itemCount: AllDataGetxControler.to.sliderModel.length,
-                          itemBuilder: (BuildContext context, int itemIndex,
-                                  int pageViewIndex) =>
-                              Container(
-                            clipBehavior: Clip.antiAlias,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20)),
-                            height: 202.h,
-                            width: 319.w,
-                            child: Image.network(
-                              AllDataGetxControler.to.sliderModel[itemIndex].imageUrl,
-                              fit: BoxFit.fill,
-                            ),
-                          ),
-                        )
-                      : !AllDataGetxControler.to.loadingsupCategory.value &&
-                              AllDataGetxControler.to.supCategory.isEmpty
-                          ? Center(
-                              child: Column(
-                                children: const [
-                                  Icon(Icons.warning, size: 80),
-                                  Text(
-                                    'NO DATA',
-                                    style: TextStyle(
-                                      color: Colors.grey,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 24,
-                                    ),
-                                  )
-                                ],
-                              ),
-                            )
-                          : Center(child: CircularProgressIndicator()),
-                  SizedBox(
-                    height: 30.h,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        "Browse by Categories",
-                        style: TextStyle(
-                            color: color1,
-                            fontSize: 16.sp,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      InkWell(
-                        onTap: () {
-                          Navigator.of(context)
-                              .pushNamed("/category_screen_op11");
-                        },
-                        child: SizedBox(
-                            height: 20.h,
-                            child: const Text(
-                              "More >",
-                              style: TextStyle(color: Colors.blue),
-                            )),
-                      )
-                    ],
-                  ),
-                  SizedBox(
-                    height: 20.h,
-                  ),
-                  Container(
-                    height: 120.h,
-                    child:!AllDataGetxControler.to.loadingsupCategory.value &&
-                      AllDataGetxControler.to.categories.isNotEmpty
-                      ?  ListView.builder(
-                    padding: EdgeInsets.only(left: 10),
-                    itemCount:  AllDataGetxControler.to.categories.length,
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, index) {
-                      return InkWell(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => CategoryScreenOP11(
-                                listcat:  AllDataGetxControler.to.categories.value[index],
-                              ),
-                            ),
-                          );
-                        },
-                        child: Container(
-                          width: 100.w,
-                          child: ListTile(
-                            title: Container(
-                                clipBehavior: Clip.antiAlias,
-                                decoration: BoxDecoration(
-                                    color: HexColor("#979797"),
-                                    borderRadius:
-                                    BorderRadius.circular(30.w)),
-                                child: Image.network(
-                                    AllDataGetxControler.to.categories[index].imageUrl)),
-                            subtitle: Text(
-                              AllDataGetxControler.to.categories[index].nameEn,
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                fontSize: 11.5.sp,
-                                color: color1,
-                              ),
-                            ),
+                    options: CarouselOptions(
+                      height: 202.h,
+                      autoPlay: true,
+                      enlargeCenterPage: true,
+                      viewportFraction: 0.9,
+                      aspectRatio: 2.0,
+                      initialPage: 2,
+                    ),
+                    itemCount: AllDataGetxControler.to.sliderModel.length,
+                    itemBuilder: (BuildContext context, int itemIndex,
+                        int pageViewIndex) =>
+                        Container(
+                          clipBehavior: Clip.antiAlias,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20)),
+                          height: 202.h,
+                          width: 319.w,
+                          child: Image.network(
+                            AllDataGetxControler.to.sliderModel[itemIndex].imageUrl,
+                            fit: BoxFit.fill,
                           ),
                         ),
-                      );
-                    },
-                  ) :!AllDataGetxControler.to.loadingsupCategory.value &&
-                      AllDataGetxControler.to.categories.isEmpty
+                  )
+                      : !AllDataGetxControler.to.loadingSliderModel.value &&
+                      AllDataGetxControler.to.sliderModel.isEmpty
                       ? Center(
                     child: Column(
                       children: const [
@@ -227,87 +144,171 @@ class _MainScreenState extends State<MainScreen> {
                       ],
                     ),
                   )
-                      : Center(child: CircularProgressIndicator()),),
+                      : Center(child: CircularProgressIndicator()),
                   SizedBox(
-                    height: 20.h,
+                    height: 30.h,
                   ),
-                  Center(
-                      child: Text(
-                    "Recommended For You",
+                  Text(
+                    "Browse by Categories",
+                    textAlign: TextAlign.center,
                     style: TextStyle(
                         color: color1,
                         fontSize: 16.sp,
                         fontWeight: FontWeight.bold),
-                  )),
-                  Expanded(child:!AllDataGetxControler.to.loadingLatestProducts.value &&
-                      AllDataGetxControler.to.latestProducts.isNotEmpty
-                      ?GridView.builder(
-                    gridDelegate:
-                    const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      mainAxisSpacing: 10,
-                      childAspectRatio: 154 / 220,
-                      //  crossAxisSpacing: 154/220,
-                      crossAxisSpacing: 10,
-                    ),
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 10, vertical: 10),
-                    itemCount:  AllDataGetxControler.to.latestProducts.length,
-                    itemBuilder: (context, index) {
-                      return InkWell(
-                        onTap: () {
-                          Product p= Product();
-                          p.price=AllDataGetxControler.to.latestProducts.value[index].price;
-                          p.nameEn=AllDataGetxControler.to.latestProducts.value[index].nameEn;
-                          p.imageUrl=AllDataGetxControler.to.latestProducts.value[index].imageUrl;
-                          p.id=AllDataGetxControler.to.latestProducts.value[index].id;
-                          p.infoAr=AllDataGetxControler.to.latestProducts.value[index].infoAr;
-                          p.isFavorite=AllDataGetxControler.to.latestProducts.value[index].isFavorite;
-                          p.infoEn=AllDataGetxControler.to.latestProducts.value[index].infoEn;
-                          p.nameAr=AllDataGetxControler.to.latestProducts.value[index].nameAr;
-                          p.offerPrice=AllDataGetxControler.to.latestProducts.value[index].offerPrice;
-                          p.overalRate=AllDataGetxControler.to.latestProducts.value[index].overalRate;
-                          p.productRate=AllDataGetxControler.to.latestProducts.value[index].productRate;
-                          p.quantity=AllDataGetxControler.to.latestProducts.value[index].quantity;
-                          p.subCategoryId=AllDataGetxControler.to.latestProducts.value[index].subCategoryId;
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => SingleProductOp1(
-                                product: p,
+                  ),
+                  SizedBox(
+                    height: 10.h,
+                  ),
+                  Container(
+                    height: 120.h,
+                    child:!AllDataGetxControler.to.loadingCategory.value &&
+                        AllDataGetxControler.to.categories.isNotEmpty
+                        ?  ListView.builder(
+                      padding: EdgeInsets.only(left: 10),
+                      itemCount:  AllDataGetxControler.to.categories.length,
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, index) {
+                        return InkWell(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => CategoryScreenOP11(
+                                  listcat:  AllDataGetxControler.to.categories.value[index],
+                                ),
                               ),
+                            );
+                          },
+                          child: Container(
+                            alignment: AlignmentDirectional.center,
+                            width: 100.w,
+                            child: ListTile(
+                              title: Container(
+                                  clipBehavior: Clip.antiAlias,
+                                  decoration: BoxDecoration(
+                                      color: HexColor("#979797"),
+                                      borderRadius:
+                                      BorderRadius.circular(30.w)),
+                                  child: Image.network(
+                                      AllDataGetxControler.to.categories[index].imageUrl)),
+                              subtitle: Text(
+                                AllDataGetxControler.to.categories[index].name,
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontSize: 11.5.sp,
+                                  color: color1,
+                                ),
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                    ) :
+                    !AllDataGetxControler.to.loadingsupCategory.value &&
+                        AllDataGetxControler.to.categories.isEmpty
+                        ? Center(
+                      child: Column(
+                        children: const [
+                          Icon(Icons.warning, size: 80),
+                          Text(
+                            'NO DATA',
+                            style: TextStyle(
+                              color: Colors.grey,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 24,
+                            ),
+                          )
+                        ],
+                      ),
+                    )
+                        : Center(child: CircularProgressIndicator()),),
+                  SizedBox(
+                    height: 10.h,
+                  ),
+                  Center(
+                      child: Text(
+                        "Recommended For You",
+                        style: TextStyle(
+                            color: color1,
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.bold),
+                      )),
+                  Container(
+                    // flex: 1,
+                    child:!AllDataGetxControler.to.loadingLatestProducts.value &&
+                        AllDataGetxControler.to.latestProducts.isNotEmpty
+                        ?Container(
+                      height: MediaQuery.of(context).size.height,
+                      child: GridView.builder(
+                        physics: NeverScrollableScrollPhysics(),
+                        gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          mainAxisSpacing: 10,
+                          childAspectRatio: 154 / 220,
+                          //  crossAxisSpacing: 154/220,
+                          crossAxisSpacing: 10,
+                        ),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 10),
+                        itemCount:  AllDataGetxControler.to.latestProducts.length,
+                        itemBuilder: (context, index) {
+                          return InkWell(
+                            onTap: () {
+                              Product p= Product();
+                              p.price=AllDataGetxControler.to.latestProducts.value[index].price;
+                              p.nameEn=AllDataGetxControler.to.latestProducts.value[index].nameEn;
+                              p.imageUrl=AllDataGetxControler.to.latestProducts.value[index].imageUrl;
+                              p.id=AllDataGetxControler.to.latestProducts.value[index].id;
+                              p.infoAr=AllDataGetxControler.to.latestProducts.value[index].infoAr;
+                              p.isFavorite=AllDataGetxControler.to.latestProducts.value[index].isFavorite;
+                              p.infoEn=AllDataGetxControler.to.latestProducts.value[index].infoEn;
+                              p.nameAr=AllDataGetxControler.to.latestProducts.value[index].nameAr;
+                              p.offerPrice=AllDataGetxControler.to.latestProducts.value[index].offerPrice;
+                              p.overalRate=AllDataGetxControler.to.latestProducts.value[index].overalRate;
+                              p.productRate=AllDataGetxControler.to.latestProducts.value[index].productRate;
+                              p.quantity=AllDataGetxControler.to.latestProducts.value[index].quantity;
+                              p.subCategoryId=AllDataGetxControler.to.latestProducts.value[index].subCategoryId;
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => SingleProductOp1(
+                                    product: p,
+                                  ),
+                                ),
+                              );
+                            },
+                            child: Card01(
+                              image:  AllDataGetxControler.to.latestProducts[index].imageUrl,
+                              name:  AllDataGetxControler.to.latestProducts[index].name,
+                              price: AllDataGetxControler.to.latestProducts[index].price.toString(),
                             ),
                           );
                         },
-                        child: Card01(
-                          image:  AllDataGetxControler.to.latestProducts[index].imageUrl,
-                          name:  AllDataGetxControler.to.latestProducts[index].nameEn,
-                        ),
-                      );
-                    },
-                  ) : !AllDataGetxControler.to.loadingLatestProducts.value &&
-                      AllDataGetxControler.to.latestProducts.isEmpty
-                      ? Center(
-                    child: Column(
-                      children: const [
-                        Icon(Icons.warning, size: 80),
-                        Text(
-                          'NO DATA',
-                          style: TextStyle(
-                            color: Colors.grey,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 24,
-                          ),
-                        )
-                      ],
-                    ),
-                  )
-                      : Center(child: CircularProgressIndicator()),),
+                      ),
+                    ) :
+                    !AllDataGetxControler.to.loadingLatestProducts.value &&
+                        AllDataGetxControler.to.latestProducts.isEmpty
+                        ? Center(
+                      child: Column(
+                        children: const [
+                          Icon(Icons.warning, size: 80),
+                          Text(
+                            'NO DATA',
+                            style: TextStyle(
+                              color: Colors.grey,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 24,
+                            ),
+                          )
+                        ],
+                      ),
+                    )
+                        : Center(child: CircularProgressIndicator()),),
                 ],
-              ),
-            ],
-          ),
-        ),
+              );
+            }
+        )
       ),
     );
   }

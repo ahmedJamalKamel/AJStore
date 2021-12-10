@@ -17,9 +17,9 @@ class CityrGetxController extends GetxController {
     super.onInit();
   } //CRUD
 
-  Future<void> readContacts() async {
+  Future<List<CityData>> readContacts() async {
     loading.value = true;
-    city.value = await _topicDbController.read();
+   return city.value = await _topicDbController.read();
     loading.value = false;
     // notifyListeners();
     // update();

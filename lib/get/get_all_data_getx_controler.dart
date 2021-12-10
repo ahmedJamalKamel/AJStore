@@ -1,4 +1,5 @@
 
+import 'package:flutter/cupertino.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
@@ -7,60 +8,58 @@ import 'package:scound_project_elancer/api/controler/home_api_controller.dart';
 import 'package:scound_project_elancer/api/controler/user_api_controller.dart';
 import 'package:scound_project_elancer/model/HomeMobel/lastest_products.dart';
 import 'package:scound_project_elancer/model/HomeMobel/slider.dart';
+import 'package:scound_project_elancer/model/ProductDetails/opject_prodict.dart';
 import 'package:scound_project_elancer/model/list_cat.dart';
 import 'package:scound_project_elancer/model/product_model.dart';
 import 'package:scound_project_elancer/model/sup_categories.dart';
 
 class AllDataGetxControler extends GetxController
 {
+
+
   RxList<SupCategory> supCategory = <SupCategory>[].obs;
   RxList<ListCat> categories = <ListCat>[].obs;
   RxList<Product> product = <Product>[].obs;
   RxBool loadingsupCategory = false.obs;
   RxBool loadingCategory = false.obs;
   RxBool loadingProduct = false.obs;
+
   final UserApiController _apiController=UserApiController();
   final HomeApiController _homeApiController=HomeApiController();
   /////////////////// prodct
-  RxList<Product> prouduct=<Product>[].obs;
-  RxBool loding=false.obs;
-  //////
-
+  //RxList<Product> prouduct=<Product>[].obs;
+  // RxBool loding=false.obs;
   static AllDataGetxControler get to => Get.find<AllDataGetxControler>();
+  void data()
+  async{
+    loadingCategory.value=true;
+    loadingLatestProducts.value=true;
+    loadingSliderModel.value=true;
+    // lo.value=true;
+
+    await getLatestProducts();
+    await getSliderModel();
+    await getCategory();
+    await getAllProduct();
+
+
+  //  await AllDataGetxControler.to.getAllProduct();
+  }
   @override
   void onInit() {
-    getCategory();
-    //getSupCategory();
-    getLatestProducts();
-    getSliderModel();
+  //  getCategory();
+    // //getSupCategory();
+    data();
     super.onInit();
   } //CRUD
 
-  Future<void> getSupCategory(String id) async {
-    supCategory.value.clear();
-    prouduct.value.clear();
-
-    loadingsupCategory.value = true;
-    loding.value = true;
-    supCategory.value= await _apiController.getSupCategories(id);
-    loadingsupCategory.value = false;
-    // notifyListeners();
-    // update();
-    print("gatDataProduct");
-    for (int i = 0; i < AllDataGetxControler.to.supCategory.value.length; i++) {
-      prouduct.value.addAll(
-          await UserApiController().getProduct(supCategory.value[i].id.toString()));
-    }
-    print("gatDataProduct"+prouduct.value.length.toString());
-    loding.value = false;
-  }
   Future<void> getSupCategory1(String id) async {
+    loadingsupCategory = true.obs;
     supCategory.value.clear();
-  //  prouduct.value.clear();
-    loadingsupCategory.value = true;
-  //  loding.value = true;
+   //
     supCategory.value= await _apiController.getSupCategories(id);
     loadingsupCategory.value = false;
+    print("getSupCategory1"+supCategory.value.length.toString());
     // notifyListeners();
     // update();
   }
@@ -75,6 +74,32 @@ class AllDataGetxControler extends GetxController
     loadingProduct.value = true;
     product.value = await _apiController.getProduct(id);
     loadingProduct.value = false;
+    // notifyListeners();
+    // update();
+  }
+  ////// get All Product
+  RxList<Product> Allproduct = <Product>[].obs;
+  RxBool loadingAllProduct = false.obs;
+  RxList<SupCategory> allSupCategory = <SupCategory>[].obs;
+  RxList<Product> filterSearch=<Product>[].obs;
+  Future<void> getAllProduct() async {
+  //  allSupCategory.clear();
+    Allproduct.clear();
+    loadingAllProduct.value = true;
+    categories.value = await _apiController.getCategories();
+      for(int i=0;i<categories.length;i++)
+      {
+        supCategory.value= await _apiController.getSupCategories(categories.value[i].id.toString());
+       // getSupCategory1();
+        for(int j=0;j<supCategory.length;j++)
+        {
+          Allproduct.value.addAll(await _apiController.getProduct(supCategory.value[j].id.toString()));
+        }
+        // allSupCategory.value.addAll(await _apiController.getSupCategories(categories[i].id.toString())) ;
+      }
+      loadingAllProduct.value = false;
+
+
     // notifyListeners();
     // update();
   }
@@ -99,21 +124,18 @@ class AllDataGetxControler extends GetxController
     // notifyListeners();
     // update();
   }
-
-  Future<void> gatDataProduct(String supcat)
-  async{
-    print("gatDataProduct");
-  //  getSupCategory(supcat);
-    if(!loadingsupCategory.value) {
-      loding.value = true;
-      for (int i = 0; i <
-          AllDataGetxControler.to.supCategory.value.length; i++) {
-        prouduct.value.addAll(
-            await UserApiController().getProduct(i.toString()));
-      }
-      print("gatDataProduct");
-      loding.value = false;
-    }
+//////////////////////////
+//   RxMap  ditiles = ObjectPr as RxMap;
+  ObjectPr ditiles=ObjectPr();
+  RxBool ditilesloding=false.obs;
+  RxBool isfavertD=false.obs;
+  Future<void> getDitilesProduct(String id) async {
+    ditilesloding.value = true;
+    ditiles = (await _apiController.getProductDitales(id))!;
+    ditilesloding.value = false;
+    isfavertD.value=ditiles.isFavorite;
+    // notifyListeners();
+     update();
   }
 
 

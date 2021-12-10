@@ -9,12 +9,13 @@ import 'package:scound_project_elancer/get/get_all_data_getx_controler.dart';
 import 'package:scound_project_elancer/model/list_cat.dart';
 import 'package:scound_project_elancer/model/product_model.dart';
 import 'package:scound_project_elancer/model/sup_categories.dart';
+import 'package:scound_project_elancer/screens/ProductScreen/single_product_op1.dart';
 import 'package:scound_project_elancer/widgets/Card/card01.dart';
 import 'package:scound_project_elancer/widgets/NavButtom/nav_filter.dart';
 
 class CategoryScreenOp2 extends StatefulWidget {
-  CategoryScreenOp2({Key? key, required this.cat}) : super(key: key);
-  ListCat cat;
+  CategoryScreenOp2({Key? key, required this.supCategory}) : super(key: key);
+  SupCategory supCategory;
 
   @override
   _CategoryScreenOp2State createState() => _CategoryScreenOp2State();
@@ -23,25 +24,15 @@ class CategoryScreenOp2 extends StatefulWidget {
 class _CategoryScreenOp2State extends State<CategoryScreenOp2>
   //  with SingleTickerProviderStateMixin
 {
-  // List<Product> prouduct=<Product>[];
-  // bool loding=true;
-  // void gatData()
-  // async{
-  //   setState(() {
-  //     loding=true;  });
-  //     for(int i=0;i<AllDataGetxControler.to.supCategory.value.length;i++)
-  //     {
-  //       prouduct.addAll(await UserApiController().getProduct(i.toString()));
-  //   }
-  //     setState(() {
-  //       loding=false;
-  //     });
-  //
-  // }
+  void getData()async
+  {
+    await AllDataGetxControler.to.getProduct(widget.supCategory.id.toString());
+  }
   @override
   void initState() {
-    print("initState " +widget.cat.id.toString());
-    AllDataGetxControler.to.getSupCategory(widget.cat.id.toString());
+    getData();
+  //  print("initState " +widget.cat.id.toString());
+    //AllDataGetxControler.to.getProduct(widget.supCategory.id.toString());
    // AllDataGetxControler.to.gatDataProduct(widget.id);
     // TODO: implement initState
     super.initState();
@@ -68,7 +59,7 @@ class _CategoryScreenOp2State extends State<CategoryScreenOp2>
                         height: 281.h,
                         width: MediaQuery.of(context).size.width,
                         child: Image.network(
-                          widget.cat.imageUrl,
+                          widget.supCategory.imageUrl,
                           fit: BoxFit.fill,
                         )),
                     Container(
@@ -84,7 +75,7 @@ class _CategoryScreenOp2State extends State<CategoryScreenOp2>
                       margin: EdgeInsets.only(top: 125.h),
                       child: Center(
                           child: Text(
-                            widget.cat.nameEn,
+                            widget.supCategory.name,
                         style: TextStyle(
                             color: color2,
                             fontWeight: FontWeight.bold,
@@ -130,10 +121,10 @@ class _CategoryScreenOp2State extends State<CategoryScreenOp2>
               ),
               Obx(() {
                return  Expanded(
-                  child: !AllDataGetxControler.to.loding.value &&
-                      AllDataGetxControler.to.prouduct.value.isNotEmpty
+                  child: !AllDataGetxControler.to.loadingProduct.value &&
+                      AllDataGetxControler.to.product.value.isNotEmpty
                       ? GridView.builder(
-                          itemCount: AllDataGetxControler.to.prouduct.value.length,
+                          itemCount: AllDataGetxControler.to.product.value.length,
                           padding: EdgeInsets.symmetric(horizontal: 28.w),
                           gridDelegate:
                                SliverGridDelegateWithFixedCrossAxisCount(
@@ -144,16 +135,28 @@ class _CategoryScreenOp2State extends State<CategoryScreenOp2>
                             crossAxisSpacing: 10,
                           ),
                           itemBuilder: (context, index) {
-                            return Card01(
-                              image: AllDataGetxControler.to.prouduct.value[index].imageUrl,
-                              name:   AllDataGetxControler.to.prouduct.value[index].nameEn,
-                              price: AllDataGetxControler.to.prouduct.value[index].price.toString(),
-                              m: true,
+                            return InkWell(
+                              onTap: (){
+                                Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => SingleProductOp1(
+                                      product: AllDataGetxControler.to.product.value[index],
+                                    ),
+                                  ),
+                                );
+                              },
+                              child: Card01(
+                                image: AllDataGetxControler.to.product.value[index].imageUrl,
+                                name:   AllDataGetxControler.to.product.value[index].name,
+                                price: AllDataGetxControler.to.product.value[index].price.toString(),
+                                m: true,
+                              ),
                             );
                           },
                         )
-                      : !AllDataGetxControler.to.loding.value &&
-                      AllDataGetxControler.to.prouduct.value.isEmpty
+                      : !AllDataGetxControler.to.loadingProduct.value &&
+                      AllDataGetxControler.to.product.value.isEmpty
                           ? Center(
                               child: Column(
                                 children: const [

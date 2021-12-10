@@ -44,22 +44,22 @@ class Card01 extends StatelessWidget {
               ],
             ),
           ),
-      Align(
-          alignment: AlignmentDirectional.topEnd,
-            child: Container(
-              margin: EdgeInsets.only(
-                  top: 10.h, right: 10.w, left: 10.w),
-              decoration: BoxDecoration(
-                  color: color2,
-                  borderRadius: BorderRadius.circular(14.w)),
-              height: 28.h,
-              width: 28.w,
-              child: SvgPicture.asset(
-                "imageSvg/Button_Icon_Save.svg",
-                fit: BoxFit.scaleDown,
-              ),
-            ),
-          ),
+      // Align(
+      //     alignment: AlignmentDirectional.topEnd,
+      //       child: Container(
+      //         margin: EdgeInsets.only(
+      //             top: 10.h, right: 10.w, left: 10.w),
+      //         decoration: BoxDecoration(
+      //             color: color2,
+      //             borderRadius: BorderRadius.circular(14.w)),
+      //         height: 28.h,
+      //         width: 28.w,
+      //         child: SvgPicture.asset(
+      //           "imageSvg/Button_Icon_Save.svg",
+      //           fit: BoxFit.scaleDown,
+      //         ),
+      //       ),
+      //     ),
           // Align(
           //     alignment: AlignmentDirectional.topEnd,
           //     child: Container(

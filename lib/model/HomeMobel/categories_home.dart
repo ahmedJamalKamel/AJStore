@@ -1,3 +1,5 @@
+import 'package:scound_project_elancer/prefs/shared_pref_controller.dart';
+
 class CategoriesHome {
  late int id;
  late String nameEn;
@@ -6,7 +8,7 @@ class CategoriesHome {
  late String imageUrl;
  //Categories();
   // Categories({this.id, this.nameEn, this.nameAr, this.image, this.imageUrl});
-
+ String get name =>SharedPrefController().language=="ar"?nameAr:nameEn;
   CategoriesHome.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     nameEn = json['name_en'];

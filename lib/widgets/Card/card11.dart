@@ -1,11 +1,15 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:scound_project_elancer/Them/colors.dart';
+import 'package:scound_project_elancer/model/product_model.dart';
 class Card11 extends StatelessWidget {
-  const Card11({
+   Card11({
     Key? key,
+    required this.p
   }) : super(key: key);
+  Product p;
 
   @override
   Widget build(BuildContext context) {
@@ -17,9 +21,11 @@ class Card11 extends StatelessWidget {
       child: Stack(
         children: [
           SizedBox(
-              child: Image.asset(
-                "image/card11.png",
-                fit: BoxFit.fitHeight,
+            height: MediaQuery.of(context).size.height,
+              width:  MediaQuery.of(context).size.width,
+              child: Image.network(
+                p.imageUrl,
+                fit: BoxFit.fill,
               )),
           Container(
             color: HexColor("#979797").withOpacity(.4),
@@ -28,9 +34,10 @@ class Card11 extends StatelessWidget {
               alignment: AlignmentDirectional.center,
               child: Container(
                 margin: EdgeInsets.only(bottom: 64.h),
-                child: const Text(
-                  "Nike Shoes",
-                  style: TextStyle(
+                child:  Text(
+                  p.name,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.bold),
                 ),

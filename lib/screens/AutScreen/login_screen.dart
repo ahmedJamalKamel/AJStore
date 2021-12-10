@@ -8,6 +8,7 @@ import 'package:scound_project_elancer/Them/colors.dart';
 import 'package:scound_project_elancer/api/controler/auth_api_controller.dart';
 import 'package:scound_project_elancer/api/controler/user_api_controller.dart';
 import 'package:scound_project_elancer/get/author_getx_controller.dart';
+import 'package:scound_project_elancer/get/favorite_getx_controller.dart';
 import 'package:scound_project_elancer/get/get_all_data_getx_controler.dart';
 import 'package:scound_project_elancer/helpers/helpers.dart';
 import 'package:scound_project_elancer/model/city.dart';
@@ -52,24 +53,6 @@ class _LoginScreenState extends State<LoginScreen>with Helpers {
             height: 50.h,
           ),
           Container(height: 237.h,width: 227.w,child: Image.asset("image/loginImage.png"),),
-          // Container(
-          //   margin: EdgeInsets.only(top: 40.h),
-          //   child: Row(
-          //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //     children: [
-          //       CircleAvatar(
-          //         radius: 19.w,
-          //         child: Icon(
-          //           Icons.clear,
-          //           color: color1,
-          //         ),
-          //         backgroundColor: color3.withOpacity(.2),
-          //       ),
-          //       Container(
-          //           child: Text(AppLocalizations.of(context)!.forgotcreden)),
-          //     ],
-          //   ),
-          // ),
           SizedBox(
             height: 28.h,
           ),
@@ -97,6 +80,8 @@ class _LoginScreenState extends State<LoginScreen>with Helpers {
             prefixIcon: Icons.person_outline,
             textEditingController: _userNametextEditingController,
             hint: "599999999",
+            textInputType: TextInputType.phone,
+            numper: 9,
           ),
           SizedBox(
             height: 30.h,
@@ -112,6 +97,7 @@ class _LoginScreenState extends State<LoginScreen>with Helpers {
             prefixIcon: Icons.lock_outline,
             textEditingController: _passwordtextEditingController,
             hint: "********",
+            se: true,
           ),
           SizedBox(
             height: 18.h,
@@ -185,7 +171,10 @@ class _LoginScreenState extends State<LoginScreen>with Helpers {
     );
     if (status){
       final AllDataGetxControler _allDataGetxControler = Get.put<AllDataGetxControler>(AllDataGetxControler());
-      Navigator.pushReplacementNamed(context, '/home_screen');}
+      final FavoriteGetXController _FavoriteGetxControler = Get.put<FavoriteGetXController>(FavoriteGetXController());
+      Navigator.pushReplacementNamed(context, '/home_screen');
+
+    }
   }
 
 }

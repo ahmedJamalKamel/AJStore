@@ -1,10 +1,12 @@
+import 'package:scound_project_elancer/prefs/shared_pref_controller.dart';
+
 class CityData{
   late int id;
   late String nameEn;
   late String nameAr;
 
   CityData();
-
+  String get name =>SharedPrefController().language=="ar"?nameAr:nameEn;
   CityData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     nameEn = json['name_en'];
