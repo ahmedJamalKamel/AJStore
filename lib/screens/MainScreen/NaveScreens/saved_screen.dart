@@ -8,6 +8,7 @@ import 'package:scound_project_elancer/api/controler/favorite_api_controller.dar
 import 'package:scound_project_elancer/get/favorite_getx_controller.dart';
 import 'package:scound_project_elancer/model/product_model.dart';
 import 'package:scound_project_elancer/screens/ProductScreen/single_product_op1.dart';
+import 'package:scound_project_elancer/widgets/Card/card04_save.dart';
 import 'package:scound_project_elancer/widgets/Card/card_save.dart';
 
 class SavedScreen extends StatefulWidget {
@@ -24,8 +25,10 @@ class _SavedScreenState extends State<SavedScreen> {
     // TODO: implement initState
     super.initState();
   }
+
   Product p = Product();
   Product remove = Product();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,60 +41,70 @@ class _SavedScreenState extends State<SavedScreen> {
               SizedBox(
                 height: 60.h,
               ),
-              Row(
-                children: [
-                  Container(
-                    height: 30.h,
-                    width: 79.w,
-                    decoration: BoxDecoration(
-                      color: color2,
-                      borderRadius: BorderRadius.circular(15.w),
-                    ),
-                    child: Center(
-                        child: Text(
-                      "10 items",
-                      style: TextStyle(color: Colors.black),
-                    )),
-                  ),
-                  Container(
-                    height: 30.h,
-                    width: 79.w,
-                    decoration: BoxDecoration(
-                      color: color6,
-                      borderRadius: BorderRadius.circular(15.w),
-                    ),
-                    child: Center(
-                        child: Text(
-                      "10 items",
-                      style: TextStyle(color: Colors.white),
-                    )),
-                  ),
-                  Spacer(),
-                  Container(
-                    margin: EdgeInsets.only(right: 10.w, left: 10.w),
-                    decoration: BoxDecoration(
-                        color: color3.withOpacity(.2),
-                        borderRadius: BorderRadius.circular(18.w)),
-                    height: 38.h,
-                    width: 38.w,
-                    child: SvgPicture.asset(
-                      "imageSvg/Icon_List.svg",
-                      fit: BoxFit.scaleDown,
-                    ),
-                  ),
-                  Container(
-                    //  margin: EdgeInsets.only(top: 10.h, right: 10.w, left: 10.w),
-                    // decoration: BoxDecoration(
-                    //     color: color3.withOpacity(.2),
-                    //     borderRadius: BorderRadius.circular(18.w)),
-                    height: 38.h,
-                    width: 38.w,
-                    child: SvgPicture.asset(
-                      "imageSvg/Button_Icon_Circle.svg",
-                      //fit: BoxFit.scaleDown,
-                    ),
-                  ),
-                ],
+              // Row(
+              //   children: [
+              //     Container(
+              //       height: 30.h,
+              //       width: 79.w,
+              //       decoration: BoxDecoration(
+              //         color: color2,
+              //         borderRadius: BorderRadius.circular(15.w),
+              //       ),
+              //       child: Center(
+              //           child: Text(
+              //         "10 items",
+              //         style: TextStyle(color: Colors.black),
+              //       )),
+              //     ),
+              //     Container(
+              //       height: 30.h,
+              //       width: 79.w,
+              //       decoration: BoxDecoration(
+              //         color: color6,
+              //         borderRadius: BorderRadius.circular(15.w),
+              //       ),
+              //       child: Center(
+              //           child: Text(
+              //         "10 items",
+              //         style: TextStyle(color: Colors.white),
+              //       )),
+              //     ),
+              //     Spacer(),
+              //     Container(
+              //       margin: EdgeInsets.only(right: 10.w, left: 10.w),
+              //       decoration: BoxDecoration(
+              //           color: color3.withOpacity(.2),
+              //           borderRadius: BorderRadius.circular(18.w)),
+              //       height: 38.h,
+              //       width: 38.w,
+              //       child: SvgPicture.asset(
+              //         "imageSvg/Icon_List.svg",
+              //         fit: BoxFit.scaleDown,
+              //       ),
+              //     ),
+              //     Container(
+              //       //  margin: EdgeInsets.only(top: 10.h, right: 10.w, left: 10.w),
+              //       // decoration: BoxDecoration(
+              //       //     color: color3.withOpacity(.2),
+              //       //     borderRadius: BorderRadius.circular(18.w)),
+              //       height: 38.h,
+              //       width: 38.w,
+              //       child: SvgPicture.asset(
+              //         "imageSvg/Button_Icon_Circle.svg",
+              //         //fit: BoxFit.scaleDown,
+              //       ),
+              //     ),
+              //   ],
+              // ),
+              Text(
+                "My Favorite",
+                style: TextStyle(
+                    color: color1,
+                    fontSize: 22.sp,
+                    fontWeight: FontWeight.w600),
+              ),
+              SizedBox(
+                height: 10.h,
               ),
               !FavoriteGetXController.to.loadingFavorite.value &&
                       FavoriteGetXController.to.listFavorite.value.isNotEmpty
@@ -101,80 +114,89 @@ class _SavedScreenState extends State<SavedScreen> {
                             FavoriteGetXController.to.listFavorite.length,
                         itemBuilder: (context, index) {
                           return InkWell(
-                              onTap: () {
-                                // Product p = Product();
-                                 p.price = FavoriteGetXController
-                                     .to.listFavorite.value[index].price;
-                                 p.nameEn = FavoriteGetXController
-                                     .to.listFavorite.value[index].nameEn;
-                                 p.imageUrl = FavoriteGetXController
-                                     .to.listFavorite.value[index].imageUrl;
-                                 p.id = FavoriteGetXController
-                                     .to.listFavorite.value[index].id;
-                                 p.infoAr = FavoriteGetXController
-                                     .to.listFavorite.value[index].infoAr;
-                                 p.isFavorite = FavoriteGetXController
-                                     .to.listFavorite.value[index].isFavorite;
-                                 p.infoEn = FavoriteGetXController
-                                     .to.listFavorite.value[index].infoEn;
-                                 p.nameAr = FavoriteGetXController
-                                     .to.listFavorite.value[index].nameAr;
-                                 p.offerPrice = FavoriteGetXController
-                                     .to.listFavorite.value[index].offerPrice;
-                                 p.overalRate = FavoriteGetXController
-                                     .to.listFavorite.value[index].overalRate;
-                                 p.productRate = FavoriteGetXController
-                                     .to.listFavorite.value[index].productRate;
-                                 p.quantity = FavoriteGetXController
-                                     .to.listFavorite.value[index].quantity;
-                                 p.subCategoryId = FavoriteGetXController
-                                     .to.listFavorite.value[index].subCategoryId;
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => SingleProductOp1(
-                                      product: p,
-                                    ),
+                            onTap: () {
+                              // Product p = Product();
+                              p.price = FavoriteGetXController
+                                  .to.listFavorite.value[index].price;
+                              p.nameEn = FavoriteGetXController
+                                  .to.listFavorite.value[index].nameEn;
+                              p.imageUrl = FavoriteGetXController
+                                  .to.listFavorite.value[index].imageUrl;
+                              p.id = FavoriteGetXController
+                                  .to.listFavorite.value[index].id;
+                              p.infoAr = FavoriteGetXController
+                                  .to.listFavorite.value[index].infoAr;
+                              p.isFavorite = FavoriteGetXController
+                                  .to.listFavorite.value[index].isFavorite;
+                              p.infoEn = FavoriteGetXController
+                                  .to.listFavorite.value[index].infoEn;
+                              p.nameAr = FavoriteGetXController
+                                  .to.listFavorite.value[index].nameAr;
+                              p.offerPrice = FavoriteGetXController
+                                  .to.listFavorite.value[index].offerPrice;
+                              p.overalRate = FavoriteGetXController
+                                  .to.listFavorite.value[index].overalRate;
+                              p.productRate = FavoriteGetXController
+                                  .to.listFavorite.value[index].productRate;
+                              p.quantity = FavoriteGetXController
+                                  .to.listFavorite.value[index].quantity;
+                              p.subCategoryId = FavoriteGetXController
+                                  .to.listFavorite.value[index].subCategoryId;
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => SingleProductOp1(
+                                    product: p,
                                   ),
-                                );
+                                ),
+                              );
+                            },
+                            child: Dismissible(
+                              background: const Align(
+                                  alignment: AlignmentDirectional.centerEnd,
+                                  child: Icon(
+                                    Icons.delete,
+                                    color: Colors.red,
+                                  )),
+                              key: UniqueKey(),
+                              onDismissed: (direction) async {
+                                remove.price = FavoriteGetXController
+                                    .to.listFavorite.value[index].price;
+                                remove.nameEn = FavoriteGetXController
+                                    .to.listFavorite.value[index].nameEn;
+                                remove.imageUrl = FavoriteGetXController
+                                    .to.listFavorite.value[index].imageUrl;
+                                remove.id = FavoriteGetXController
+                                    .to.listFavorite.value[index].id;
+                                remove.infoAr = FavoriteGetXController
+                                    .to.listFavorite.value[index].infoAr;
+                                remove.isFavorite = FavoriteGetXController
+                                    .to.listFavorite.value[index].isFavorite;
+                                remove.infoEn = FavoriteGetXController
+                                    .to.listFavorite.value[index].infoEn;
+                                remove.nameAr = FavoriteGetXController
+                                    .to.listFavorite.value[index].nameAr;
+                                remove.offerPrice = FavoriteGetXController
+                                    .to.listFavorite.value[index].offerPrice;
+                                remove.overalRate = FavoriteGetXController
+                                    .to.listFavorite.value[index].overalRate;
+                                remove.productRate = FavoriteGetXController
+                                    .to.listFavorite.value[index].productRate;
+                                remove.quantity = FavoriteGetXController
+                                    .to.listFavorite.value[index].quantity;
+                                remove.subCategoryId = FavoriteGetXController
+                                    .to.listFavorite.value[index].subCategoryId;
+                                await FavoriteApiController().setFavorite(
+                                    context,
+                                    idProduct: remove.id.toString());
                               },
-                              child: Dismissible(
-                                  background: const Align(alignment: AlignmentDirectional.centerEnd,child: Icon(Icons.delete,color: Colors.red,)),
-                                  key:  UniqueKey(),
-                                  onDismissed: (direction)
-                                  async{
-                                    remove.price = FavoriteGetXController
-                                       .to.listFavorite.value[index].price;
-                                    remove.nameEn = FavoriteGetXController
-                                       .to.listFavorite.value[index].nameEn;
-                                    remove.imageUrl = FavoriteGetXController
-                                       .to.listFavorite.value[index].imageUrl;
-                                    remove.id = FavoriteGetXController
-                                       .to.listFavorite.value[index].id;
-                                    remove.infoAr = FavoriteGetXController
-                                       .to.listFavorite.value[index].infoAr;
-                                    remove.isFavorite = FavoriteGetXController
-                                       .to.listFavorite.value[index].isFavorite;
-                                    remove.infoEn = FavoriteGetXController
-                                       .to.listFavorite.value[index].infoEn;
-                                    remove.nameAr = FavoriteGetXController
-                                       .to.listFavorite.value[index].nameAr;
-                                    remove.offerPrice = FavoriteGetXController
-                                       .to.listFavorite.value[index].offerPrice;
-                                    remove.overalRate = FavoriteGetXController
-                                       .to.listFavorite.value[index].overalRate;
-                                    remove.productRate = FavoriteGetXController
-                                       .to.listFavorite.value[index].productRate;
-                                    remove.quantity = FavoriteGetXController
-                                       .to.listFavorite.value[index].quantity;
-                                    remove.subCategoryId = FavoriteGetXController
-                                        .to.listFavorite.value[index].subCategoryId;
-                                    await FavoriteApiController().setFavorite(context, idProduct: remove.id.toString());
-                                  },
-                                  child: CardSave(
-                                favorite: FavoriteGetXController
-                                    .to.listFavorite[index],
-                              )));
+                              child: Card04Save(favorite: FavoriteGetXController.to.listFavorite[index],)
+                              // CardSave(
+                              //   favorite: FavoriteGetXController
+                              //       .to.listFavorite[index],
+                              // ),
+                            ),
+                          );
                         },
                       ),
                     )

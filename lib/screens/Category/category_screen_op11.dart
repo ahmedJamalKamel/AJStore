@@ -109,38 +109,38 @@ class _CategoryScreenOP11State extends State<CategoryScreenOP11> {
 
                 ],
               ),
-              Align(
-                alignment: AlignmentDirectional.bottomCenter,
-                child: Container(
-                  margin: EdgeInsets.only(left: 20.w, right: 20.w,bottom: 28.h),
-                  // width: 562.w,
-                  height: 60.h,
-                  decoration: BoxDecoration(
-                      color: color1, borderRadius: BorderRadius.circular(30.w)),
-                  child: Row(
-                    children: [
-                      const Spacer(),
-                      Text("146 Items",style: TextStyle(color: color2),),
-                      const Spacer(),
-                      VerticalDivider(color:color3 ,),
-                      const Spacer(),
-                      InkWell(
-                        onTap: (){
-                          Navigator.of(context).pushNamed("/category_screen_op2");
-                        },
-                        child: Row(
-                          children: [
-                            SvgPicture.asset("imageSvg/FiltersIcon.svg",color:color2,),
-                            SizedBox(width: 10.w,),
-                            Text("Add Filters",style: TextStyle(color: Colors.white,fontSize: 10.sp),),
-                          ],
-                        ),
-                      ),
-                      const Spacer(),
-                    ],
-                  ),
-                ),
-              ),
+              // Align(
+              //   alignment: AlignmentDirectional.bottomCenter,
+              //   child: Container(
+              //     margin: EdgeInsets.only(left: 20.w, right: 20.w,bottom: 28.h),
+              //     // width: 562.w,
+              //     height: 60.h,
+              //     decoration: BoxDecoration(
+              //         color: color1, borderRadius: BorderRadius.circular(30.w)),
+              //     child: Row(
+              //       children: [
+              //         const Spacer(),
+              //         Text("146 Items",style: TextStyle(color: color2),),
+              //         const Spacer(),
+              //         VerticalDivider(color:color3 ,),
+              //         const Spacer(),
+              //         InkWell(
+              //           onTap: (){
+              //             Navigator.of(context).pushNamed("/category_screen_op2");
+              //           },
+              //           child: Row(
+              //             children: [
+              //               SvgPicture.asset("imageSvg/FiltersIcon.svg",color:color2,),
+              //               SizedBox(width: 10.w,),
+              //               Text("Add Filters",style: TextStyle(color: Colors.white,fontSize: 10.sp),),
+              //             ],
+              //           ),
+              //         ),
+              //         const Spacer(),
+              //       ],
+              //     ),
+              //   ),
+              // ),
             ],
           )
 

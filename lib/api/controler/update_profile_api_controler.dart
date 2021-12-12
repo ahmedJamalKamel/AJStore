@@ -70,4 +70,5 @@ class UpdateProfileApiController with Helpers
     }
     return false;
   }
+
 }

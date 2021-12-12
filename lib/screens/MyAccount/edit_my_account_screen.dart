@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:scound_project_elancer/Them/colors.dart';
 import 'package:scound_project_elancer/api/controler/update_profile_api_controler.dart';
-import 'package:scound_project_elancer/get/author_getx_controller.dart';
+import 'package:scound_project_elancer/get/databaseGetx/city_getx_controller.dart';
 import 'package:scound_project_elancer/helpers/helpers.dart';
 import 'package:scound_project_elancer/model/model_city_todata.dart';
 import 'package:scound_project_elancer/prefs/shared_pref_controller.dart';
@@ -111,206 +111,257 @@ class _EditMyAccountScreenState extends State<EditMyAccountScreen>
               ),
               Container(
                 child: Text(
-                  "Personal Information",
+                 !changePass?"Personal Information":"Change  password",
                   style: TextStyle(
                       color: color1,
                       fontWeight: FontWeight.w700,
                       fontSize: 20.sp),
                 ),
               ),
-              SizedBox(
-                height: 27.h,
-              ),
-              Text(
-                "Full Name",
-                style: TextStyle(fontSize: 12.sp, color: color3),
-              ),
-              SizedBox(
-                height: 7.h,
-              ),
-              AppTextField(
-                prefixIcon: Icons.person_outline,
-                color: color1,
-                textEditingController: _userNametextEditingController,
-                hint: "",
-              ),
-              SizedBox(
-                height: 10.h,
-              ),
-              Divider(),
-              SizedBox(
-                height: 10.h,
-              ),
-              Container(
-                  margin: EdgeInsets.only(left: 10.w), child: Text("Gender")),
-              Row(
+              !changePass?Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Expanded(
-                    child: RadioListTile<String>(
-                      title: const Text('Male'),
-                      contentPadding: EdgeInsets.zero,
-                      value: 'M',
-                      groupValue: _gender,
-                      onChanged: (String? value) {
-                        if (value != null) {
-                          setState(() {
-                            _gender = value;
-                          });
-                        }
-                      },
-                    ),
+                  SizedBox(
+                    height: 27.h,
                   ),
-                  Expanded(
-                    child: RadioListTile<String>(
-                      title: const Text('Female'),
-                      contentPadding: EdgeInsets.zero,
-                      value: 'F',
-                      groupValue: _gender,
-                      onChanged: (String? value) {
-                        if (value != null) {
-                          setState(() {
-                            _gender = value;
-                          });
-                        }
-                      },
+                  Text(
+                    "Full Name",
+                    style: TextStyle(fontSize: 12.sp, color: color3),
+                  ),
+                  SizedBox(
+                    height: 7.h,
+                  ),
+                  AppTextField(
+                    prefixIcon: Icons.person_outline,
+                    color: color1,
+                    textEditingController: _userNametextEditingController,
+                    hint: "",
+                  ),
+                  SizedBox(
+                    height: 10.h,
+                  ),
+                  Divider(),
+                  SizedBox(
+                    height: 10.h,
+                  ),
+                  Container(
+                      margin: EdgeInsets.only(left: 10.w), child: Text("Gender")),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: RadioListTile<String>(
+                          title: const Text('Male'),
+                          contentPadding: EdgeInsets.zero,
+                          value: 'M',
+                          groupValue: _gender,
+                          onChanged: (String? value) {
+                            if (value != null) {
+                              setState(() {
+                                _gender = value;
+                              });
+                            }
+                          },
+                        ),
+                      ),
+                      Expanded(
+                        child: RadioListTile<String>(
+                          title: const Text('Female'),
+                          contentPadding: EdgeInsets.zero,
+                          value: 'F',
+                          groupValue: _gender,
+                          onChanged: (String? value) {
+                            if (value != null) {
+                              setState(() {
+                                _gender = value;
+                              });
+                            }
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 10.h,
+                  ),
+                  Divider(),
+                  SizedBox(
+                    height: 10.h,
+                  ),
+                  Text(
+                    "City",
+                    style: TextStyle(fontSize: 12.sp, color: color3),
+                  ),
+                  FutureBuilder<List<CityData>>(
+                    future: _future,
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return Center(child: CircularProgressIndicator());
+                      } else if (snapshot.hasData && snapshot.data!.isNotEmpty && dropdownvalue!=null) {
+                        city = snapshot.data ?? [];
+                        print(city.length.toString()+"ahmed");
+                        if(!createDrop)dropdownvalue=city[a.id+1];
+                        print(dropdownvalue.name+"ahmed");
+                        return DropdownButton<CityData>(
+                          value: dropdownvalue,
+                          icon: Icon(Icons.keyboard_arrow_down),
+                          underline: SizedBox(),
+                          items: city.map((e) {
+                            print(city.length);
+                            return DropdownMenuItem<CityData>(child: Text(e.name),value: e,);
+                          }).toList(),
+                          onChanged: (value) {
+                            setState(() {
+                              dropdownvalue = value!;
+                              createDrop=true;
+                              indexcity=value.id.toString();
+                              print(indexcity);
+                              print(dropdownvalue.name);
+                            });
+                          },
+                        );
+                      }
+                      else {
+                        return Center(
+                          child: Column(
+                            children: const [
+                              Icon(Icons.warning, size: 80),
+                              Text(
+                                'NO DATA',
+                                style: TextStyle(
+                                  color: Colors.grey,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 24,
+                                ),
+                              )
+                            ],
+                          ),
+                        );
+                      }
+                    },
+                  ),
+                  SizedBox(
+                    height: 5.h,
+                  ),
+                  ListTile(
+                    title: Text(
+                      "Do you want to change the password",
+                      style: TextStyle(
+                          fontWeight: FontWeight.w700, fontSize: 11.sp),
                     ),
+                    trailing: InkWell(
+                        onTap: () {
+                          setState(() {
+                            changePass = !changePass;
+                          });
+                        },
+                        child: Text(
+                          "Click here",
+                          style: TextStyle(color: Colors.blue),
+                        )),
+                  ),
+                ],):ListView(
+                physics: NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                children: [
+                  AppTextField(
+                    prefixIcon: Icons.lock_outlined,
+                    color: color1,
+                    se: true,
+                    textEditingController:
+                    currentPasswordEditingController,
+                    hint: "current Password",
+                  ),
+                  SizedBox(
+                    height: 10.h,
+                  ),
+                  AppTextField(
+                    prefixIcon: Icons.lock_outlined,
+                    color: color1,
+                    se: true,
+                    textEditingController: newPasswordEditingController,
+                    hint: "new Password",
+                  ),
+                  SizedBox(
+                    height: 10.h,
+                  ),
+                  AppTextField(
+                    prefixIcon: Icons.lock_outlined,
+                    color: color1,
+                    se: true,
+                    textEditingController:
+                    confirmationPasswordEditingController,
+                    hint: "confirmation Password",
+                  ),
+                  SizedBox(height: 10.h,),
+                  ListTile(
+                    title: Text(
+                      "Do you want edit personal information",
+                      style: TextStyle(
+                          fontWeight: FontWeight.w700, fontSize: 11.sp),
+                    ),
+                    trailing: InkWell(
+                        onTap: () {
+                          setState(() {
+                            changePass = !changePass;
+                          });
+                        },
+                        child: Text(
+                          "Click here",
+                          style: TextStyle(color: Colors.blue),
+                        )),
                   ),
                 ],
               ),
-              SizedBox(
-                height: 10.h,
-              ),
-              Divider(),
-              SizedBox(
-                height: 10.h,
-              ),
-              Text(
-                "City",
-                style: TextStyle(fontSize: 12.sp, color: color3),
-              ),
-             // !CityrGetxController.to.loading.value?DropdownButton(
-             //    value: dropdownvalue,
-             //    icon: Icon(Icons.keyboard_arrow_down),
-             //    underline: SizedBox(),
-             //    items: items.map((String items) {
-             //      return DropdownMenuItem(value: items, child: Text(items));
-             //    }).toList(),
-             //    onChanged: (value) {
-             //      setState(() {
-             //        dropdownvalue = value.toString();
-             //        for (int i = 0; i < items.length; i++) {
-             //          if (dropdownvalue == items[i]) {
-             //            int j = i + 1;
-             //            setState(() {
-             //              indexcity = j.toString();
-             //              print("city selected " + indexcity);
-             //            });
-             //          }
-             //        }
-             //      });
-             //    },
-             //  ):CircularProgressIndicator(),
-              FutureBuilder<List<CityData>>(
-                future: _future,
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Center(child: CircularProgressIndicator());
-                  } else if (snapshot.hasData && snapshot.data!.isNotEmpty && dropdownvalue!=null) {
-                    city = snapshot.data ?? [];
-                    print(city.length.toString()+"ahmed");
-                    if(!createDrop)dropdownvalue=city[a.id+1];
-                    print(dropdownvalue.name+"ahmed");
-                    return DropdownButton<CityData>(
-                      value: dropdownvalue,
-                      icon: Icon(Icons.keyboard_arrow_down),
-                      underline: SizedBox(),
-                      items: city.map((e) {
-                        print(city.length);
-                        return DropdownMenuItem<CityData>(child: Text(e.name),value: e,);
-                      }).toList(),
-                      onChanged: (value) {
-                        setState(() {
-                          dropdownvalue = value!;
-                          createDrop=true;
-                          indexcity=value.id.toString();
-                          print(indexcity);
-                          print(dropdownvalue.name);
-                        });
-                      },
-                    );
-                  }
-                  else {
-                    return Center(
-                      child: Column(
-                        children: const [
-                          Icon(Icons.warning, size: 80),
-                          Text(
-                            'NO DATA',
-                            style: TextStyle(
-                              color: Colors.grey,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 24,
-                            ),
-                          )
-                        ],
-                      ),
-                    );
-                  }
-                },
-              ),
-              SizedBox(
-                height: 5.h,
-              ),
-              !changePass
-                  ? ListTile(
-                      title: Text(
-                        "Do you want to change the password",
-                        style: TextStyle(
-                            fontWeight: FontWeight.w700, fontSize: 11.sp),
-                      ),
-                      trailing: InkWell(
-                          onTap: () {
-                            setState(() {
-                              changePass = true;
-                            });
-                          },
-                          child: Text(
-                            "Click here",
-                            style: TextStyle(color: Colors.blue),
-                          )),
-                    )
-                  : ListView(
-                      physics: NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      children: [
-                        AppTextField(
-                          prefixIcon: Icons.lock_outlined,
-                          color: color1,
-                          textEditingController:
-                              currentPasswordEditingController,
-                          hint: "current Password",
-                        ),
-                        SizedBox(
-                          height: 10.h,
-                        ),
-                        AppTextField(
-                          prefixIcon: Icons.lock_outlined,
-                          color: color1,
-                          textEditingController: newPasswordEditingController,
-                          hint: "new Password",
-                        ),
-                        SizedBox(
-                          height: 10.h,
-                        ),
-                        AppTextField(
-                          prefixIcon: Icons.lock_outlined,
-                          color: color1,
-                          textEditingController:
-                              confirmationPasswordEditingController,
-                          hint: "confirmation Password",
-                        ),
-                      ],
-                    ),
+              // !changePass
+              //     ? ListTile(
+              //         title: Text(
+              //           "Do you want to change the password",
+              //           style: TextStyle(
+              //               fontWeight: FontWeight.w700, fontSize: 11.sp),
+              //         ),
+              //         trailing: InkWell(
+              //             onTap: () {
+              //               setState(() {
+              //                 changePass = true;
+              //               });
+              //             },
+              //             child: Text(
+              //               "Click here",
+              //               style: TextStyle(color: Colors.blue),
+              //             )),
+              //       )
+              //     : ListView(
+              //         physics: NeverScrollableScrollPhysics(),
+              //         shrinkWrap: true,
+              //         children: [
+              //           AppTextField(
+              //             prefixIcon: Icons.lock_outlined,
+              //             color: color1,
+              //             textEditingController:
+              //                 currentPasswordEditingController,
+              //             hint: "current Password",
+              //           ),
+              //           SizedBox(
+              //             height: 10.h,
+              //           ),
+              //           AppTextField(
+              //             prefixIcon: Icons.lock_outlined,
+              //             color: color1,
+              //             textEditingController: newPasswordEditingController,
+              //             hint: "new Password",
+              //           ),
+              //           SizedBox(
+              //             height: 10.h,
+              //           ),
+              //           AppTextField(
+              //             prefixIcon: Icons.lock_outlined,
+              //             color: color1,
+              //             textEditingController:
+              //                 confirmationPasswordEditingController,
+              //             hint: "confirmation Password",
+              //           ),
+              //         ],
+              //       ),
               SizedBox(
                 height: 30.h,
               ),
@@ -342,9 +393,7 @@ class _EditMyAccountScreenState extends State<EditMyAccountScreen>
 
   bool checkData() {
     if (changePass) {
-      if (_userNametextEditingController.text.isNotEmpty &&
-          indexcity.isNotEmpty &&
-          _gender.isNotEmpty &&
+      if (
           newPasswordEditingController.text.isNotEmpty &&
           confirmationPasswordEditingController.text.isNotEmpty)
       {
@@ -398,29 +447,13 @@ class _EditMyAccountScreenState extends State<EditMyAccountScreen>
     }
   }
   Future<void> ChangePasswordAndUptaeProfile() async {
-    bool statusup = await UpdateProfileApiController().updateProfile(context,
-        name: _userNametextEditingController.text,
-        cityId: indexcity,
-        gender: _gender);
-    if (statusup) {
-      SharedPrefController().updateProfile(
-          fullname: _userNametextEditingController.text,
-          genderM: _gender,
-          cityData: dropdownvalue);
-    //  Navigator.pop(context);
       bool status = await UpdateProfileApiController().changePassword(context,
           carantPass: currentPasswordEditingController.text,
           comfirmPass: confirmationPasswordEditingController.text,
           newPass: newPasswordEditingController.text);
       if (status) {
-        // SharedPrefController().updateProfile(
-        //     fullname: _userNametextEditingController.text,
-        //     genderM: _gender,
-        //     cityN: dropdownvalue,
-        //     cityID: indexcity);
         Navigator.pop(context);
       }
     }
 
-  }
 }

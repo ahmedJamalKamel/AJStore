@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:scound_project_elancer/Them/colors.dart';
+import 'package:scound_project_elancer/get/databaseGetx/order_getx_controller.dart';
 import 'package:scound_project_elancer/widgets/Card/card04.dart';
 import 'package:scound_project_elancer/widgets/Card/card08.dart';
+import 'package:scound_project_elancer/widgets/Card/card_save.dart';
 
 class MyCartScreen extends StatefulWidget {
   const MyCartScreen({Key? key}) : super(key: key);
@@ -17,61 +20,51 @@ class _MyCartScreenState extends State<MyCartScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 28.w),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              margin: EdgeInsets.only(top: 60.h),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  InkWell(
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
-                    child: Container(
-                        //  margin: EdgeInsets.only(left: 28.w, right: 28.w, top: 55.h),
-                        height: 38.h,
-                        width: 38.w,
-                        decoration: BoxDecoration(
-                            color: color1,
-                            borderRadius: BorderRadius.circular(19.w)),
-                        child:
-                            SvgPicture.asset("imageSvg/Left_Button_Blake.svg")),
-                  ),
-                  Container(
-                    //    margin: EdgeInsets.only(left: 28.w, right: 28.w, top: 55.h),
-                    height: 38.h,
-                    width: 38.w,
-                    decoration: BoxDecoration(
-                        border: Border.all(width: 1.w, color: Colors.grey),
-                        borderRadius: BorderRadius.circular(19.w)),
-                    child: const Center(child: Icon(Icons.more_vert)),
-                  ),
-                ],
+        padding: EdgeInsets.symmetric(horizontal: 28.w,vertical: 28.h),
+        child: Obx((){
+          return Column(
+            children: [
+              SizedBox(
+                height: 60.h,
               ),
-            ),
-            SizedBox(
-              height: 40.h,
-            ),
-            Text(
-              "My Cart",
-              style: TextStyle(
-                  color: color1, fontSize: 22.sp, fontWeight: FontWeight.w600),
-            ),
-            SizedBox(
-              height: 10.h,
-            ),
-            Expanded(
-                child: ListView.builder(
-                  itemCount: 5,
-              itemBuilder: (context, index) {
-                    return Card04();
-              },
-            ))
-          ],
-        ),
+              Text(
+                "My Cart",
+                style: TextStyle(
+                    color: color1, fontSize: 22.sp, fontWeight: FontWeight.w600),
+              ),
+              SizedBox(
+                height: 10.h,
+              ),
+              !OrderGetxController.to.loading.value &&
+                  OrderGetxController.to.order.value.isNotEmpty
+                  ?
+              Expanded(
+                  child: ListView.builder(
+                    itemCount: OrderGetxController.to.order.value.length,
+                    itemBuilder: (context, index) {
+                      return CardSave(favorite: OrderGetxController.to.order.value[index]);
+                    },
+                  )): !OrderGetxController.to.loading.value &&
+                  OrderGetxController.to.order.value.isEmpty
+                  ? Center(
+                child: Column(
+                  children: const [
+                    Icon(Icons.warning, size: 80),
+                    Text(
+                      'NO DATA',
+                      style: TextStyle(
+                        color: Colors.grey,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 24,
+                      ),
+                    )
+                  ],
+                ),
+              )
+                  : Center(child: CircularProgressIndicator())
+            ],
+          );
+        }),
       ),
     );
   }

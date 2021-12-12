@@ -36,7 +36,7 @@ class AppTextField extends StatelessWidget {
 
       decoration: InputDecoration(
         hintText: hint,
-
+          counterText: "",
         hintStyle: TextStyle(color: Colors.grey.withOpacity(.5)),
         prefixIcon: ticket?Icon(prefixIcon,color: color,):SizedBox(),
         enabledBorder: outlineBorder(),

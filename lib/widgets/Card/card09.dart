@@ -28,23 +28,23 @@ class Card09 extends StatelessWidget {
               child: Stack(
                 children: [
                   SizedBox(height: 219.h,width: double.infinity,child: Image.network(supCategory.imageUrl,fit: BoxFit.fill,)),
-                  Align(
-                      alignment: AlignmentDirectional.topEnd,
-                      child: Container(
-                        margin: EdgeInsets.only(
-                            top: 10.h, right: 10.w, left: 10.w),
-                        decoration: BoxDecoration(
-                            color: color2,
-                            borderRadius: BorderRadius.circular(14.w),
-                            border: Border.all(width: 1.w,color: HexColor("#8F92A1"))
-                        ),
-                        height: 28.h,
-                        width: 28.w,
-                        child: SvgPicture.asset(
-                          "imageSvg/Icon_save.svg",
-                          fit: BoxFit.scaleDown,
-                        ),
-                      )),
+                  // Align(
+                  //     alignment: AlignmentDirectional.topEnd,
+                  //     child: Container(
+                  //       margin: EdgeInsets.only(
+                  //           top: 10.h, right: 10.w, left: 10.w),
+                  //       decoration: BoxDecoration(
+                  //           color: color2,
+                  //           borderRadius: BorderRadius.circular(14.w),
+                  //           border: Border.all(width: 1.w,color: HexColor("#8F92A1"))
+                  //       ),
+                  //       height: 28.h,
+                  //       width: 28.w,
+                  //       child: SvgPicture.asset(
+                  //         "imageSvg/Icon_save.svg",
+                  //         fit: BoxFit.scaleDown,
+                  //       ),
+                  //     )),
                 ],
               ),
             ),

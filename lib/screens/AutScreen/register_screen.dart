@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:scound_project_elancer/Them/colors.dart';
 import 'package:scound_project_elancer/api/controler/auth_api_controller.dart';
-import 'package:scound_project_elancer/get/author_getx_controller.dart';
+import 'package:scound_project_elancer/get/databaseGetx/city_getx_controller.dart';
 import 'package:scound_project_elancer/helpers/helpers.dart';
 import 'package:scound_project_elancer/model/model_city_todata.dart';
 import 'package:scound_project_elancer/model/register.dart';

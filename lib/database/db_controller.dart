@@ -29,6 +29,15 @@ class DbController {
             'nameEn TEXT NOT NULL,'
             'nameAr TEXT NOT NULL'
             ')');
+        await db.execute('CREATE TABLE cart ('
+            'id INTEGER PRIMARY KEY AUTOINCREMENT,'
+            'nameEn TEXT NOT NULL,'
+            'nameAr TEXT NOT NULL,'
+            'price TEXT NOT NULL,'
+            'image TEXT NOT NULL,'
+            'cont INTEGER NOT NULL,'
+            'prodictId INTEGER NOT NULL'
+            ')');
       },
       onUpgrade: (Database db, int oldVersion, int newVersion) {
 

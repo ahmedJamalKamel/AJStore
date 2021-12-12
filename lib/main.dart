@@ -24,7 +24,7 @@ import 'package:scound_project_elancer/screens/launch_screen.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'database/db_controller.dart';
-import 'get/author_getx_controller.dart';
+import 'get/databaseGetx/city_getx_controller.dart';
 import 'get/language_getx_controller.dart';
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();

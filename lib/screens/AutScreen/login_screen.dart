@@ -7,7 +7,8 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:scound_project_elancer/Them/colors.dart';
 import 'package:scound_project_elancer/api/controler/auth_api_controller.dart';
 import 'package:scound_project_elancer/api/controler/user_api_controller.dart';
-import 'package:scound_project_elancer/get/author_getx_controller.dart';
+import 'package:scound_project_elancer/get/databaseGetx/city_getx_controller.dart';
+import 'package:scound_project_elancer/get/databaseGetx/order_getx_controller.dart';
 import 'package:scound_project_elancer/get/favorite_getx_controller.dart';
 import 'package:scound_project_elancer/get/get_all_data_getx_controler.dart';
 import 'package:scound_project_elancer/helpers/helpers.dart';
@@ -172,6 +173,8 @@ class _LoginScreenState extends State<LoginScreen>with Helpers {
     if (status){
       final AllDataGetxControler _allDataGetxControler = Get.put<AllDataGetxControler>(AllDataGetxControler());
       final FavoriteGetXController _FavoriteGetxControler = Get.put<FavoriteGetXController>(FavoriteGetXController());
+      final OrderGetxController _OrderGetxControler = Get.put<OrderGetxController>(OrderGetxController());
+
       Navigator.pushReplacementNamed(context, '/home_screen');
 
     }

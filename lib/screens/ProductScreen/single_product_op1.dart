@@ -9,9 +9,12 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:scound_project_elancer/Them/colors.dart';
 import 'package:scound_project_elancer/api/controler/favorite_api_controller.dart';
 import 'package:scound_project_elancer/api/controler/user_api_controller.dart';
+import 'package:scound_project_elancer/get/databaseGetx/order_getx_controller.dart';
 import 'package:scound_project_elancer/get/favorite_getx_controller.dart';
 import 'package:scound_project_elancer/get/get_all_data_getx_controler.dart';
+import 'package:scound_project_elancer/helpers/helpers.dart';
 import 'package:scound_project_elancer/model/ProductDetails/opject_prodict.dart';
+import 'package:scound_project_elancer/model/model_cart_database.dart';
 import 'package:scound_project_elancer/model/product_model.dart';
 
 class SingleProductOp1 extends StatefulWidget {
@@ -22,7 +25,7 @@ class SingleProductOp1 extends StatefulWidget {
   _SingleProductOp1State createState() => _SingleProductOp1State();
 }
 
-class _SingleProductOp1State extends State<SingleProductOp1> {
+class _SingleProductOp1State extends State<SingleProductOp1> with Helpers{
   late bool isfavorite;
 //  late final _ratingController;
   late double _rating;
@@ -60,7 +63,7 @@ class _SingleProductOp1State extends State<SingleProductOp1> {
                       height: 300.h,
                       autoPlay: true,
                       enlargeCenterPage: true,
-                      viewportFraction: 0.9,
+                      // viewportFraction: 0.9,
                       aspectRatio: 2.0,
                       initialPage: 2,
                     ),
@@ -232,38 +235,80 @@ class _SingleProductOp1State extends State<SingleProductOp1> {
               ),
               Align(
                 alignment: AlignmentDirectional.bottomCenter,
-                child: Container(
-                  margin:
-                      EdgeInsets.only(left: 20.w, right: 20.w, bottom: 28.h),
-                  width: 207.w,
-                  height: 60.h,
-                  decoration: BoxDecoration(
-                      color: color1, borderRadius: BorderRadius.circular(30.w)),
-                  child: Row(
-                    children: [
-                      SizedBox(
-                        width: 21.w,
-                      ),
-                      Text(
-                        "Add to Cart",
-                        style: TextStyle(color: color2),
-                      ),
-                      Spacer(),
-                      Container(
-                          height: 38.h,
-                          width: 38.w,
-                          decoration: BoxDecoration(
-                              color: HexColor("#979797"),
-                              borderRadius: BorderRadius.circular(18.w)),
-                          child: Center(
-                              child: Text(
-                            "0",
-                            style: TextStyle(color: color2),
-                          ))),
-                      SizedBox(
-                        width: 21.w,
-                      ),
-                    ],
+                child: InkWell(
+                  onTap: (){
+                    bool ex=false;
+                    OrderData order=OrderData();
+                    order.nameEn=widget.product.nameEn;
+                    order.nameAr=widget.product.nameAr;
+                    order.price=widget.product.price.toString();
+                    order.image=widget.product.imageUrl;
+                    order.prodictId=widget.product.id;
+                    order.cont=1;
+                    List<OrderData> o=OrderGetxController.to.order.value;
+                    for(int i=0;i<o.length;i++)
+                    {
+                      if(o[i].prodictId==order.prodictId)
+                      {
+                        setState(() {
+                          ex=true;
+                        });
+                        break;
+                      }
+                    }
+                    if(!ex)OrderGetxController.to.createContact(order);
+                    else{                 showSnackBar(
+                      context: context,
+                      message: 'this item is alredy exist',
+                      error: true,
+                    );
+
+                    }
+                 // final  ex = OrderGetxController.to.order.value.where((element) =>element.nameEn==order.nameEn);
+                 //    if(ex.isNotEmpty) {
+                 //      OrderGetxController.to.createContact(order);
+                 //    } else{
+                 //      showSnackBar(
+                 //        context: context,
+                 //        message: 'this item is alredy exist',
+                 //        error: true,
+                 //      );
+                 //    }
+
+                  },
+                  child: Container(
+                    margin:
+                        EdgeInsets.only(left: 20.w, right: 20.w, bottom: 28.h),
+                    width: 207.w,
+                    height: 60.h,
+                    decoration: BoxDecoration(
+                        color: color1, borderRadius: BorderRadius.circular(30.w)),
+                    child: Row(
+                      children: [
+                        SizedBox(
+                          width: 21.w,
+                        ),
+                        Text(
+                          "Add to Cart",
+                          style: TextStyle(color: color2),
+                        ),
+                        Spacer(),
+                        Container(
+                            height: 38.h,
+                            width: 38.w,
+                            decoration: BoxDecoration(
+                                color: HexColor("#979797"),
+                                borderRadius: BorderRadius.circular(18.w)),
+                            child: Center(
+                                child: Text(
+                                  OrderGetxController.to.order.length.toString(),
+                              style: TextStyle(color: color2),
+                            ))),
+                        SizedBox(
+                          width: 21.w,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),

@@ -108,7 +108,7 @@ class _MainScreenState extends State<MainScreen> {
                       height: 202.h,
                       autoPlay: true,
                       enlargeCenterPage: true,
-                      viewportFraction: 0.9,
+                      //viewportFraction: 0.9,
                       aspectRatio: 2.0,
                       initialPage: 2,
                     ),
