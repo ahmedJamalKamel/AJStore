@@ -5,7 +5,10 @@ import 'package:get/get.dart';
 import 'package:scound_project_elancer/Them/colors.dart';
 import 'package:scound_project_elancer/api/controlerPayment/api_orders_controler.dart';
 import 'package:scound_project_elancer/api/controlerPayment/api_payment_cards_controler.dart';
+import 'package:scound_project_elancer/database/controllers/order_db_controller.dart';
+import 'package:scound_project_elancer/get/databaseGetx/order_getx_controller.dart';
 import 'package:scound_project_elancer/get/pay_order_address_getx/patment_card_getx_controller.dart';
+import 'package:scound_project_elancer/prefs/shared_pref_controller.dart';
 import 'package:string_splitter/src/string_splitter.dart';
 
 class ViewPaymentCardScreen extends StatefulWidget {
@@ -117,7 +120,21 @@ class _ViewPaymentCardScreenState extends State<ViewPaymentCardScreen> {
                           if(widget.json!="")
                           {
                            bool states=await ApiOrderController().newOrder(context, cart: widget.json, addressId: widget.addressId, cardId: PaymentCardGetXController.to.listPaymentCard.value[index].id.toString());
-                            if(states)Navigator.of(context).pushReplacementNamed("/order_view_screen");
+                            print(SharedPrefController().userID);
+                           // for(int i=0;i<OrderGetxController.to.order.length;i++)
+                           // {
+                           //   if(OrderGetxController.to.order.value[i].userId==SharedPrefController().userID)
+                           //   {
+                           //     await OrderGetxController.to.deleteContact(OrderGetxController.to.order.value[i].id);
+                           //   }
+                           // }
+                            if(states)
+                              {
+                                await  OrderGetxController.to.deleteContactForUser(SharedPrefController().userID);
+
+                                Navigator.of(context).pushReplacementNamed("/order_view_screen");
+
+                              }
                           }
                         },
                         child: widget.json!=""?Container(

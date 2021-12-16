@@ -177,10 +177,7 @@ class _CategoryScreenOp2State extends State<CategoryScreenOp2>
               }),
             ],
           ),
-          Align(
-            alignment: AlignmentDirectional.bottomCenter,
-            child: NavFilter(),
-          ),
+
         ],
       ),
     );

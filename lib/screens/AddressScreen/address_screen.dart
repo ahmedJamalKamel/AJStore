@@ -78,7 +78,7 @@ class _AddressScreenState extends State<AddressScreen> {
                 children: [
                   InkWell(
                     onTap: () {
-                      Navigator.of(context).pushNamed("/new_address_screen");
+                      Navigator.of(context).pushReplacementNamed("/new_address_screen");
                     },
                     child: Container(
                       margin: EdgeInsets.only(right: 10.w, left: 10.w),

@@ -21,7 +21,9 @@ class MyCartScreen extends StatefulWidget {
 }
 
 class _MyCartScreenState extends State<MyCartScreen> {
-  bool lod=false;
+  bool lod = false;
+  var totalPrice = 0.0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,32 +62,39 @@ class _MyCartScreenState extends State<MyCartScreen> {
                                 color: color1,
                                 borderRadius: BorderRadius.circular(30.w)),
                             child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-
-                                Container(
-                                  height: 60.h,
-                                  width: 103.5.w,
-                                  decoration: BoxDecoration(
-                                      color: color3,
-                                      borderRadius: BorderRadius.only(bottomLeft: Radius.circular(30.w),topLeft: Radius.circular(30.w))),
-                                  //color: color3,
-                                  child: Center(
-                                    child: Text(
-                                      "Total",
-                                      style: TextStyle(color: color1,fontWeight: FontWeight.w700),
-                                    ),
-                                  ),
-                                ),
+                                // Container(
+                                //   height: 60.h,
+                                //   width: 103.5.w,
+                                //   decoration: BoxDecoration(
+                                //       color: color3,
+                                //       borderRadius: BorderRadius.only(bottomLeft: Radius.circular(30.w),topLeft: Radius.circular(30.w))),
+                                //   //color: color3,
+                                //   child: Center(
+                                //     child: Text(
+                                //       "Total",
+                                //       style: TextStyle(color: color1,fontWeight: FontWeight.w700),
+                                //     ),
+                                //   ),
+                                // ),
 
                                 InkWell(
-                                  onTap: (){
-                                    lod=true;
-                                    List<NewOrderModel> order=[];
-                                    for(int i=0;i<OrderGetxController.to.order.value.length;i++)
-                                    {
-                                      order.add(NewOrderModel(quantity: OrderGetxController.to.order.value[i].cont, product_id: OrderGetxController.to.order.value[i].prodictId));
+                                  onTap: () {
+                                    lod = true;
+                                    List<NewOrderModel> order = [];
+                                    for (int i = 0;
+                                        i <
+                                            OrderGetxController
+                                                .to.order.value.length;
+                                        i++) {
+                                      order.add(NewOrderModel(
+                                          quantity: OrderGetxController
+                                              .to.order.value[i].cont,
+                                          product_id: OrderGetxController
+                                              .to.order.value[i].prodictId));
                                     }
-                                    String json=jsonEncode(order);
+                                    String json = jsonEncode(order);
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
@@ -97,16 +106,20 @@ class _MyCartScreenState extends State<MyCartScreen> {
                                     print(json);
                                   },
                                   child: Container(
-                                    height: 60.h,
-                                    width: 103.5.w,
-                                    decoration: BoxDecoration(
-                                        color: color1,
-                                        borderRadius: BorderRadius.only(bottomRight: Radius.circular(30.w),topRight: Radius.circular(30.w))),
 
-                                    child: Center(child: Text("Checkout  >",style: TextStyle(color: Colors.white,fontWeight: FontWeight.w700),)),
+                                    decoration: BoxDecoration(
+                                      color: color1,
+                                      borderRadius: BorderRadius.circular(30.w)
+                                    ),
+                                    child: Center(
+                                        child: Text(
+                                      "Checkout  >",
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.w700),
+                                    )),
                                   ),
                                 ),
-
                               ],
                             ),
                           ),

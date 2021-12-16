@@ -5,7 +5,7 @@ import 'package:scound_project_elancer/model/model_city_todata.dart';
 import 'package:scound_project_elancer/model/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-enum PrefKeys { lang,loggedIn, fullName, phone, gender, token ,city,cityNameEn,cityNameAr,cityNameId,imagePath,imagePathSelect,}
+enum PrefKeys { userId,lang,loggedIn, fullName, phone, gender, token ,city,cityNameEn,cityNameAr,cityNameId,imagePath,imagePathSelect,}
 
 class SharedPrefController {
   static final SharedPrefController _instance = SharedPrefController._();
@@ -50,6 +50,7 @@ class SharedPrefController {
     await _sharedPreferences.setString(PrefKeys.cityNameEn.toString(), student.city.nameEn);
     await _sharedPreferences.setString(PrefKeys.cityNameAr.toString(), student.city.nameAr);
     await _sharedPreferences.setString(PrefKeys.cityNameId.toString(), student.city.id.toString());
+    await _sharedPreferences.setInt(PrefKeys.userId.toString(), student.id);
   }
   Future<void> updateProfile({required String fullname,required String genderM,required CityData cityData})async
   {
@@ -70,7 +71,7 @@ class SharedPrefController {
   String get fullName =>_sharedPreferences.getString(PrefKeys.fullName.toString())??"";
   String get phone =>_sharedPreferences.getString(PrefKeys.phone.toString())??"";
   String get gender =>_sharedPreferences.getString(PrefKeys.gender.toString())??"";
-  // String get cityName =>_sharedPreferences.getString(PrefKeys.cityName.toString())??"";
+  int  get userID =>_sharedPreferences.getInt(PrefKeys.userId.toString())??0;
   // String get cityNameId =>_sharedPreferences.getString(PrefKeys.cityNameId.toString())??"";
 
   bool get loggedIn => _sharedPreferences.getBool(PrefKeys.loggedIn.toString()) ?? false;

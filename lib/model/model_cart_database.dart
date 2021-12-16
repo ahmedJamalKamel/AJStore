@@ -4,6 +4,7 @@ class OrderData{
   late int id;
   late int cont;
   late int prodictId;
+  late int userId ;
   late String nameEn;
   late String nameAr;
   late String price;
@@ -25,6 +26,7 @@ class OrderData{
     price = json['price'];
     image = json['image'];
     prodictId = json['prodictId'];
+    userId  = json['userId'];
   }
 
   ///Used to save data in a database table.
@@ -36,6 +38,7 @@ class OrderData{
     rowMap['image'] = image;
     rowMap['cont'] = cont;
     rowMap['prodictId'] = prodictId;
+    rowMap['userId'] = userId ;
     return rowMap;
   }
 }

@@ -53,4 +53,10 @@ class CityDbController implements DbOperations<CityData> {
     );
     return numberOfUpdatedRows > 0;
   }
+
+  @override
+  Future<bool> deleteDateToUser(int id) {
+    // TODO: implement deleteDateToUser
+    throw UnimplementedError();
+  }
 }

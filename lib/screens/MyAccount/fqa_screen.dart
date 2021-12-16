@@ -105,14 +105,16 @@ class _FQAScreenState extends State<FQAScreen> {
                     SizedBox(
                       height: 15.h,
                     ),
-                    Container(
-                      child: TextField(
-                        controller: _textEditingController,
-                        onChanged: (value) {},
-                        decoration:
-                            const InputDecoration(icon: Icon(Icons.search)),
-                      ),
-                    ),
+                    // Container(
+                    //   child: TextField(
+                    //     controller: _textEditingController,
+                    //     onChanged: (value) {
+                    //
+                    //     },
+                    //     decoration:
+                    //         const InputDecoration(icon: Icon(Icons.search)),
+                    //   ),
+                    // ),
                   ],
                 ),
               ),

@@ -31,7 +31,7 @@ class ApiPaymentController with Helpers
     return [];
   }
   Future<bool> delPayment(BuildContext context,{required String id}) async {
-    var url = Uri.parse(ApiSettings.paymentcards+id);
+    var url = Uri.parse(ApiSettings.paymentcardsdel+id);
     var response = await http.delete(url,
         headers:{
           HttpHeaders.authorizationHeader:SharedPrefController().token,

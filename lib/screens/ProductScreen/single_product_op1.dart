@@ -16,6 +16,7 @@ import 'package:scound_project_elancer/helpers/helpers.dart';
 import 'package:scound_project_elancer/model/ProductDetails/opject_prodict.dart';
 import 'package:scound_project_elancer/model/model_cart_database.dart';
 import 'package:scound_project_elancer/model/product_model.dart';
+import 'package:scound_project_elancer/prefs/shared_pref_controller.dart';
 
 class SingleProductOp1 extends StatefulWidget {
   SingleProductOp1({Key? key, required this.product}) : super(key: key);
@@ -244,6 +245,8 @@ class _SingleProductOp1State extends State<SingleProductOp1> with Helpers{
                     order.price=widget.product.price.toString();
                     order.image=widget.product.imageUrl;
                     order.prodictId=widget.product.id;
+                    order.userId=SharedPrefController().userID;
+                //    order.userId=widget.product.;
                     order.cont=1;
                     List<OrderData> o=OrderGetxController.to.order.value;
                     for(int i=0;i<o.length;i++)

@@ -35,7 +35,6 @@ class AuthApiController with Helpers {
         message: jsonDecode(response.body)['message'],
       );
     print(jsonDecode(response.body)['code']);
-
       return true;
     }
     } else if (response.statusCode == 400) {

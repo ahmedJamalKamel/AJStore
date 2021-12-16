@@ -52,7 +52,17 @@ class OrderGetxController extends GetxController {
     }
     return deleted;
   }
-
+  Future<void> deleteContactForUser(int id) async {
+    //bool deleted;
+      for(int i=0;i<order.length;i++)
+      {
+        if(order[i].userId==id)
+        {
+          await deleteContact(order[i].id);
+        }
+      }
+    // return deleted;
+    }
   Future<bool> updateContact(OrderData topic) async {
     bool updated = await _topicDbController.update(topic);
     if (updated) {
@@ -66,5 +76,8 @@ class OrderGetxController extends GetxController {
     }
     return updated;
   }
+  }
 
-}
+
+
+

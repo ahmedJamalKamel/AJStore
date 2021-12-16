@@ -26,7 +26,8 @@ class ApiSettings
   //// setting for payment
   static const addresses= _apiUrl +'addresses';
   static const addressesDel= _apiUrl +'addresses/';
-  static const paymentcards= _apiUrl +'payment-cards/';
+  static const paymentcards= _apiUrl +'payment-cards';
+  static const paymentcardsdel= _apiUrl +'payment-cards/';
   static const orders= _apiUrl +'orders';
 
 

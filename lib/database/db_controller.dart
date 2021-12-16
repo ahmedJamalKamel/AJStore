@@ -36,7 +36,8 @@ class DbController {
             'price TEXT NOT NULL,'
             'image TEXT NOT NULL,'
             'cont INTEGER NOT NULL,'
-            'prodictId INTEGER NOT NULL'
+            'prodictId INTEGER NOT NULL,'
+            'userId INTEGER NOT NULL'
             ')');
       },
       onUpgrade: (Database db, int oldVersion, int newVersion) {

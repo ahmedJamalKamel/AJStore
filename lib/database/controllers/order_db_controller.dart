@@ -54,4 +54,14 @@ class OrderDbController implements DbOperations<OrderData> {
     );
     return numberOfUpdatedRows > 0;
   }
+
+  @override
+  Future<bool> deleteDateToUser(int id) async{
+    int numberOfDeletedRows = await _database.delete(
+      'cart',
+      where: 'userId = ?',
+      whereArgs: [id],
+    );
+    return numberOfDeletedRows > 0;
+  }
 }
