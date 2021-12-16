@@ -5,6 +5,9 @@ import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:scound_project_elancer/get/get_all_data_getx_controler.dart';
 import 'package:scound_project_elancer/prefs/shared_pref_controller.dart';
+import 'package:scound_project_elancer/screens/About/adout_screen.dart';
+import 'package:scound_project_elancer/screens/AddressScreen/address_screen.dart';
+import 'package:scound_project_elancer/screens/AddressScreen/new_address_screen.dart';
 import 'package:scound_project_elancer/screens/AutScreen/login_screen.dart';
 import 'package:scound_project_elancer/screens/AutScreen/password/change_password_screen.dart';
 import 'package:scound_project_elancer/screens/AutScreen/password/forget_password_screen.dart';
@@ -19,6 +22,9 @@ import 'package:scound_project_elancer/screens/MainScreen/home_screens.dart';
 import 'package:scound_project_elancer/screens/MyAccount/edit_my_account_screen.dart';
 import 'package:scound_project_elancer/screens/MyAccount/fqa_screen.dart';
 import 'package:scound_project_elancer/screens/MyAccount/ticket_screen.dart';
+import 'package:scound_project_elancer/screens/OrderScreen/order_view_screen.dart';
+import 'package:scound_project_elancer/screens/PayMentScreen/new_payment_card_screen.dart';
+import 'package:scound_project_elancer/screens/PayMentScreen/view_payment_card_screen.dart';
 import 'package:scound_project_elancer/screens/ProductScreen/single_product_op1.dart';
 import 'package:scound_project_elancer/screens/launch_screen.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -72,6 +78,12 @@ class _MyAppState extends State<MyApp> {
               '/fqa_screen': (context) =>  FQAScreen(),
               '/ticket_screen': (context) =>  TicketScreen(),
               '/change_password_screen': (context) =>  ChangePasswordScreen(),
+              '/new_address_screen': (context) =>  NewAddressScreen(),
+              '/address_screen': (context) =>  AddressScreen(),
+              '/new_payment_card_screen': (context) =>  NewCardeScreen(),
+              '/view_payment_card_screen': (context) =>  ViewPaymentCardScreen(),
+              '/order_view_screen': (context) =>  OrderViewScreen(),
+              '/adout_screen': (context) =>  AboutScreen(),
             },
           );
         });

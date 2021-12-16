@@ -111,7 +111,7 @@ class _RegisterScreenState extends State<RegisterScreen> with Helpers {
             height: 30.h,
           ),
           Text(
-            "Phone Number",
+            AppLocalizations.of(context)!.phone_number,
             style: TextStyle(fontSize: 12.sp, color: color3),
           ),
           SizedBox(
@@ -162,7 +162,7 @@ class _RegisterScreenState extends State<RegisterScreen> with Helpers {
             height: 10.h,
           ),
           Text(
-            "City",
+            AppLocalizations.of(context)!.city,
             style: TextStyle(fontSize: 12.sp, color: color3),
           ),
           FutureBuilder<List<CityData>>(
@@ -180,7 +180,7 @@ class _RegisterScreenState extends State<RegisterScreen> with Helpers {
                   icon: Icon(Icons.keyboard_arrow_down),
                   underline: SizedBox(),
                   items: city.map((e) {
-                    return DropdownMenuItem<CityData>(child: Text(e.nameEn),value: e,);
+                    return DropdownMenuItem<CityData>(child: Text(e.name),value: e,);
                   }).toList(),
                   onChanged: (value) {
                     setState(() {
@@ -216,12 +216,12 @@ class _RegisterScreenState extends State<RegisterScreen> with Helpers {
             height: 10.h,
           ),
           Container(
-              margin: EdgeInsets.only(left: 10.w), child: Text("Gender")),
+              margin: EdgeInsets.only(left: 10.w), child: Text(AppLocalizations.of(context)!.gender)),
           Row(
             children: [
               Expanded(
                 child: RadioListTile<String>(
-                  title: const Text('Male'),
+                  title:  Text(AppLocalizations.of(context)!.male),
                   contentPadding: EdgeInsets.zero,
                   value: 'M',
                   groupValue: _gender,
@@ -236,7 +236,7 @@ class _RegisterScreenState extends State<RegisterScreen> with Helpers {
               ),
               Expanded(
                 child: RadioListTile<String>(
-                  title: const Text('Female'),
+                  title:  Text(AppLocalizations.of(context)!.female),
                   contentPadding: EdgeInsets.zero,
                   value: 'F',
                   groupValue: _gender,
@@ -291,7 +291,10 @@ class _RegisterScreenState extends State<RegisterScreen> with Helpers {
                 borderRadius: BorderRadius.all(Radius.circular(30.w)),
               ),
             ),
-          )
+          ),
+          SizedBox(
+            height: 10.h,
+          ),
         ],
       ),
     );

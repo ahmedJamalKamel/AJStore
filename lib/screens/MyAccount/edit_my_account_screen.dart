@@ -408,7 +408,9 @@ class _EditMyAccountScreenState extends State<EditMyAccountScreen>
         );
         return false;
       }
-    } else if (_userNametextEditingController.text.isNotEmpty &&
+    }
+
+    else if (_userNametextEditingController.text.isNotEmpty &&
         indexcity.isNotEmpty &&
         _gender.isNotEmpty) {
       return true;

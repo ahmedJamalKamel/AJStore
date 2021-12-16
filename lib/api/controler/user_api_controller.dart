@@ -22,7 +22,8 @@ class UserApiController with Helpers{
     var url = Uri.parse(ApiSettings.categories);
     var response = await http.get(url
         ,headers:{
-      HttpHeaders.authorizationHeader:SharedPrefController().token
+      HttpHeaders.authorizationHeader:SharedPrefController().token,
+          'lang':SharedPrefController().language
     }
     );
     if (response.statusCode == 200) {
@@ -37,7 +38,8 @@ class UserApiController with Helpers{
     var url = Uri.parse(ApiSettings.categoriesSup+idcat);
     var response = await http.get(url
         ,headers:{
-          HttpHeaders.authorizationHeader:SharedPrefController().token
+          HttpHeaders.authorizationHeader:SharedPrefController().token,
+          'lang':SharedPrefController().language
         }
     );
     if (response.statusCode == 200) {
@@ -54,7 +56,8 @@ class UserApiController with Helpers{
     var url = Uri.parse(ApiSettings.product+idcat);
     var response = await http.get(url
         ,headers:{
-          HttpHeaders.authorizationHeader:SharedPrefController().token
+          HttpHeaders.authorizationHeader:SharedPrefController().token,
+          'lang':SharedPrefController().language
         }
     );
     print("ahmed UserApiController"+response.statusCode.toString());
@@ -73,7 +76,8 @@ class UserApiController with Helpers{
     var url = Uri.parse(ApiSettings.productDetales+idcat);
     var response = await http.get(url
         ,headers:{
-          HttpHeaders.authorizationHeader:SharedPrefController().token
+          HttpHeaders.authorizationHeader:SharedPrefController().token,
+          'lang':SharedPrefController().language
         }
     );
     if (response.statusCode == 200) {
@@ -91,7 +95,8 @@ class UserApiController with Helpers{
     var url = Uri.parse(ApiSettings.cities);
     var response = await http.get(url
         ,headers:{
-          HttpHeaders.acceptHeader:'application/json'
+          HttpHeaders.acceptHeader:'application/json',
+          'lang':SharedPrefController().language
         }
     );
 
@@ -115,8 +120,7 @@ class UserApiController with Helpers{
       'rate':rate
     }, headers:{
       HttpHeaders.authorizationHeader:SharedPrefController().token,
-      // HttpHeaders.acceptHeader: '*/*',
-      // HttpHeaders.acceptEncodingHeader:'gzip,deflate,br'
+      'lang':SharedPrefController().language
     }
     );
     print("ahmed"+jsonDecode(response.body)['message'].toString());

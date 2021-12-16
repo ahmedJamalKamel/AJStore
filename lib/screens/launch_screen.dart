@@ -7,6 +7,9 @@ import 'package:scound_project_elancer/get/databaseGetx/city_getx_controller.dar
 import 'package:scound_project_elancer/get/databaseGetx/order_getx_controller.dart';
 import 'package:scound_project_elancer/get/favorite_getx_controller.dart';
 import 'package:scound_project_elancer/get/get_all_data_getx_controler.dart';
+import 'package:scound_project_elancer/get/orderGetx/order_getx_controler.dart';
+import 'package:scound_project_elancer/get/pay_order_address_getx/address_getx_controller.dart';
+import 'package:scound_project_elancer/get/pay_order_address_getx/patment_card_getx_controller.dart';
 import 'package:scound_project_elancer/model/city.dart';
 import 'package:scound_project_elancer/model/model_city_todata.dart';
 import 'package:scound_project_elancer/prefs/shared_pref_controller.dart';
@@ -32,8 +35,8 @@ class _LaunchScreenState extends State<LaunchScreen> {
         CityrGetxController.to.createContact(list[i]);
       }
     }
-    SharedPrefController().ugetCity;
-
+      SharedPrefController().ugetCity;
+      await  SharedPrefController().setCityCreated();
   }
 
   @override
@@ -46,6 +49,9 @@ class _LaunchScreenState extends State<LaunchScreen> {
       final AllDataGetxControler _allDataGetxControler = Get.put<AllDataGetxControler>(AllDataGetxControler());
       final FavoriteGetXController _FavoriteGetxControler = Get.put<FavoriteGetXController>(FavoriteGetXController());
       final OrderGetxController _OrderGetxControler = Get.put<OrderGetxController>(OrderGetxController());
+      final AddressGetXController _AddressGetXController = Get.put<AddressGetXController>(AddressGetXController());
+      final PaymentCardGetXController _PaymentCardGetXController = Get.put<PaymentCardGetXController>(PaymentCardGetXController());
+      final OrderGetXController _OrderGetXController = Get.put<OrderGetXController>(OrderGetXController());
     }
 
     // TODO: implement initState
@@ -62,26 +68,10 @@ class _LaunchScreenState extends State<LaunchScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Container(
         alignment: Alignment.center,
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: AlignmentDirectional.topStart,
-            end: AlignmentDirectional.bottomEnd,
-            colors: [
-              Colors.blue.shade800,
-              Colors.orange.shade600,
-            ],
-          ),
-        ),
-        child: const Text(
-          'API APP',
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-            fontSize: 24,
-          ),
-        ),
+        child: Image.asset("image/finalSplash.png")
       ),
     );
   }

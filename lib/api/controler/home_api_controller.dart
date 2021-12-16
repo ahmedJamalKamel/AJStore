@@ -17,7 +17,8 @@ class HomeApiController
     var url = Uri.parse(ApiSettings.home);
     var response = await http.get(url,headers:{
       HttpHeaders.authorizationHeader:SharedPrefController().token,
-      HttpHeaders.acceptHeader:'application/json'
+      HttpHeaders.acceptHeader:'application/json',
+      'lang':SharedPrefController().language
     });
 
     if (response.statusCode == 200) {
@@ -35,6 +36,7 @@ class HomeApiController
     var url = Uri.parse(ApiSettings.home);
     var response = await http.get(url,headers:{
       HttpHeaders.authorizationHeader:SharedPrefController().token,
+      'lang':SharedPrefController().language
       //HttpHeaders.acceptHeader:'application/json'
     });
   //  print("ahmed get data"+response.body.toString());
@@ -52,9 +54,10 @@ class HomeApiController
     var url = Uri.parse(ApiSettings.home);
     var response = await http.get(url,headers:{
       HttpHeaders.authorizationHeader:SharedPrefController().token,
-      HttpHeaders.acceptHeader:'application/json'
+      HttpHeaders.acceptHeader:'application/json',
+      'lang':SharedPrefController().language
     });
-
+    print("ahmed getDataFamousProduct"+response.statusCode.toString());
     if (response.statusCode == 200) {
       var jsonResponse = jsonDecode(response.body);
       HomeBase apiResponse = HomeBase.fromJson(jsonResponse);
@@ -67,7 +70,8 @@ class HomeApiController
   Future<List<LatestProducts>> getDataLatestProducts() async {
     var url = Uri.parse(ApiSettings.home);
     var response = await http.get(url,headers:{
-      HttpHeaders.authorizationHeader:SharedPrefController().token
+      HttpHeaders.authorizationHeader:SharedPrefController().token,
+      'lang':SharedPrefController().language
     });
 
     if (response.statusCode == 200) {

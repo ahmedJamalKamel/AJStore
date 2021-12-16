@@ -49,6 +49,8 @@ dependencies:
   path_provider: ^2.0.5
   sqflite: ^2.0.0+4
   flutter_rating_bar: ^4.0.0
+  string_splitter: ^1.0.0+1
+  url_launcher: ^6.0.14
 
 
 dev_dependencies:

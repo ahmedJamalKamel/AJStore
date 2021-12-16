@@ -2,8 +2,8 @@
     package="com.example.scound_project_elancer">
 
    <application
-        android:label="scound_project_elancer"
-        android:icon="@mipmap/ic_launcher">
+        android:label="AJShop"
+        android:icon="@mipmap/ic_launcher_foreground">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

@@ -6,6 +6,7 @@ import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:scound_project_elancer/api/controler/home_api_controller.dart';
 import 'package:scound_project_elancer/api/controler/user_api_controller.dart';
+import 'package:scound_project_elancer/model/HomeMobel/famous_product.dart';
 import 'package:scound_project_elancer/model/HomeMobel/lastest_products.dart';
 import 'package:scound_project_elancer/model/HomeMobel/slider.dart';
 import 'package:scound_project_elancer/model/ProductDetails/opject_prodict.dart';
@@ -41,7 +42,7 @@ class AllDataGetxControler extends GetxController
     await getSliderModel();
     await getCategory();
     await getAllProduct();
-
+    await  getFamesceProducts();
 
   //  await AllDataGetxControler.to.getAllProduct();
   }
@@ -111,6 +112,16 @@ class AllDataGetxControler extends GetxController
     loadingLatestProducts.value = true;
     latestProducts.value = await _homeApiController.getDataLatestProducts();
     loadingLatestProducts.value = false;
+    // notifyListeners();
+    // update();
+  }
+
+  RxList<FamousProducts> FamesceProducts = <FamousProducts>[].obs;
+  RxBool loadingFamesceProducts=false.obs;
+  Future<void> getFamesceProducts() async {
+    loadingFamesceProducts.value = true;
+    FamesceProducts.value = await _homeApiController.getDataFamousProduct();
+    loadingFamesceProducts.value = false;
     // notifyListeners();
     // update();
   }

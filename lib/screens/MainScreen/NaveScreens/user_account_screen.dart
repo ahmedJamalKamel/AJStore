@@ -8,7 +8,7 @@ import 'package:scound_project_elancer/Them/colors.dart';
 import 'package:scound_project_elancer/api/controler/auth_api_controller.dart';
 import 'package:scound_project_elancer/get/language_getx_controller.dart';
 import 'package:scound_project_elancer/prefs/shared_pref_controller.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class UserAccountScreen extends StatefulWidget {
   const UserAccountScreen({Key? key}) : super(key: key);
 
@@ -25,24 +25,26 @@ class _UserAccountScreenState extends State<UserAccountScreen> {
     if (imageFile != null) {
       setState(() {
         _pickedFile = imageFile;
-        SharedPrefController().setImage(imageFile.path);
-
       });
+      await  SharedPrefController().setImage(imageFile.path);
+      // AppLocalizations.of(context)!.getstarted,
     }
   }
   @override
   void initState() {
     // TODO: implement initState
+    print(SharedPrefController().imagePathS);
     super.initState();
   }
  bool logout =false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: color2,
         body: Column(
       children: [
         Container(
-          height: 242.h,
+          height: 180.h,
           width: double.infinity,
           decoration: BoxDecoration(
               color: color9,
@@ -69,15 +71,15 @@ class _UserAccountScreenState extends State<UserAccountScreen> {
                       style: TextStyle(color: color1, fontSize: 14.sp),
                     ),
                   )),
-                  !SharedPrefController().selectPath?CircleAvatar(
-                    radius: 40.w,
-                    child: Align(alignment: AlignmentDirectional.bottomEnd,child: InkWell(
-                        onTap: (){
-                          _pickImage();
-                          print("_pickImage");
-                        },
-                        child: Icon(Icons.camera_alt))),
-                  ):
+                  // SharedPrefController().selectPath?CircleAvatar(
+                  //   radius: 40.w,
+                  //   child: Align(alignment: AlignmentDirectional.bottomEnd,child: InkWell(
+                  //       onTap: (){
+                  //         _pickImage();
+                  //         print("_pickImage");
+                  //       },
+                  //       child: Icon(Icons.camera_alt))),
+                  // ):
                   CircleAvatar(
                     radius: 40.w,
                     backgroundImage: FileImage(File(SharedPrefController().imagePathS)),
@@ -96,7 +98,7 @@ class _UserAccountScreenState extends State<UserAccountScreen> {
         ),
         Expanded(
             child: ListView(
-          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 40.h),
+          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
           children: [
             InkWell
               (
@@ -110,7 +112,7 @@ class _UserAccountScreenState extends State<UserAccountScreen> {
                   color: color1,
                 ),
                 title: Text(
-                  "My Account",
+                  AppLocalizations.of(context)!.my_account,
                   style: TextStyle(color: color1,fontSize: 14.sp,fontWeight: FontWeight.w500),
                 ),
                 trailing: Icon(
@@ -118,14 +120,14 @@ class _UserAccountScreenState extends State<UserAccountScreen> {
                   color: color1,
                 ),
                 subtitle: Text(
-                  "Edit your informations ",
+                  AppLocalizations.of(context)!.my_account_sup,
                   style: TextStyle(color: color3,fontSize: 14.sp),
 
               ),
               ),
             ),
             Divider(),
-            SizedBox(height: 10.h,),
+            SizedBox(height: 6.h,),
             InkWell(
               onTap: ()
               {
@@ -137,19 +139,19 @@ class _UserAccountScreenState extends State<UserAccountScreen> {
                   color: color1,
                 ),
                 title: Text(
-                  "Language",
+                  AppLocalizations.of(context)!.language,
                   style: TextStyle(color: color1,fontSize: 14.sp,fontWeight: FontWeight.w500),
                 ),
                 trailing: Text(LanguageGetxController.to.language.value),
                 subtitle: Text(
-                  "Change  language",
+                  AppLocalizations.of(context)!.language_sup,
                   style: TextStyle(color: color3,fontSize: 14.sp),
 
                 ),
               ),
             ),
             Divider(),
-            SizedBox(height: 10.h,),
+            SizedBox(height: 6.h,),
             InkWell
               (
               onTap: ()
@@ -167,14 +169,14 @@ class _UserAccountScreenState extends State<UserAccountScreen> {
                   color: color1,
                 ),
                 subtitle: Text(
-                  "See more frequently ",
+                  AppLocalizations.of(context)!.fqa_sup,
                   style: TextStyle(color: color3,fontSize: 14.sp),
 
                 ),
               ),
             ),
             Divider(),
-            SizedBox(height: 10.h,),
+            SizedBox(height: 6.h,),
             InkWell(
               onTap: (){
                 Navigator.of(context).pushNamed("/ticket_screen");
@@ -185,7 +187,7 @@ class _UserAccountScreenState extends State<UserAccountScreen> {
                   color: color1,
                 ),
                 title: Text(
-                  "Ticket",
+                  AppLocalizations.of(context)!.ticket,
                   style: TextStyle(color: color1,fontSize: 14.sp,fontWeight: FontWeight.w500),
                 ),
                 trailing: Icon(
@@ -193,20 +195,119 @@ class _UserAccountScreenState extends State<UserAccountScreen> {
                   color: color1,
                 ),
                 subtitle: Text(
-                  "Send your Message",
+                  AppLocalizations.of(context)!.ticket_sup,
                   style: TextStyle(color: color3,fontSize: 14.sp),
 
                 ),
               ),
             ),
             Divider(),
-            SizedBox(height: 10.h,),
+            SizedBox(height: 6.h,),
+            InkWell(
+              onTap: (){
+                Navigator.of(context).pushNamed("/address_screen");
+              },
+              child: ListTile(
+                leading: Icon(
+                  Icons.location_on,
+                  color: color1,
+                ),
+                title: Text(
+                  AppLocalizations.of(context)!.my_address,
+                  style: TextStyle(color: color1,fontSize: 14.sp,fontWeight: FontWeight.w500),
+                ),
+                trailing: Icon(
+                  Icons.arrow_forward_ios,
+                  color: color1,
+                ),
+                subtitle: Text(
+                  AppLocalizations.of(context)!.my_account_sup,
+                  style: TextStyle(color: color3,fontSize: 14.sp),
+
+                ),
+              ),
+            ),
+            Divider(),
+            SizedBox(height: 6.h,),
+            InkWell(
+              onTap: (){
+                Navigator.of(context).pushNamed("/view_payment_card_screen");
+              },
+              child: ListTile(
+                leading: Icon(
+                  Icons.payment,
+                  color: color1,
+                ),
+                title: Text(
+                  AppLocalizations.of(context)!.payment_method,
+                  style: TextStyle(color: color1,fontSize: 14.sp,fontWeight: FontWeight.w500),
+                ),
+                trailing: Icon(
+                  Icons.arrow_forward_ios,
+                  color: color1,
+                ),
+                subtitle: Text(
+                  AppLocalizations.of(context)!.payment_method_sup,
+                  style: TextStyle(color: color3,fontSize: 12.sp),
+
+                ),
+              ),
+            ),
+            Divider(),
+            SizedBox(height: 6.h,),
+            InkWell(
+              onTap: (){
+                 Navigator.of(context).pushNamed("/order_view_screen");
+              },
+              child: ListTile(
+                leading: Icon(
+                  Icons.work,
+                  color: color1,
+                ),
+                title: Text(
+                  AppLocalizations.of(context)!.my_order,
+                  style: TextStyle(color: color1,fontSize: 14.sp,fontWeight: FontWeight.w500),
+                ),
+                trailing: Icon(
+                  Icons.arrow_forward_ios,
+                  color: color1,
+                ),
+                subtitle: Text(
+                  AppLocalizations.of(context)!.my_order_sup,
+                  style: TextStyle(color: color3,fontSize: 12.sp),
+
+                ),
+              ),
+            ),
+            Divider(),
+            SizedBox(height: 6.h,),
+            InkWell(
+              onTap: (){
+                Navigator.of(context).pushNamed("/adout_screen");
+              },
+              child: ListTile(
+                leading: Icon(
+                  Icons.info,
+                  color: color1,
+                ),
+                title: Text(
+                  AppLocalizations.of(context)!.about,
+                  style: TextStyle(color: color1,fontSize: 14.sp,fontWeight: FontWeight.w500),
+                ),
+                trailing: Icon(
+                  Icons.arrow_forward_ios,
+                  color: color1,
+                ),
+              ),
+            ),
+            Divider(),
+            SizedBox(height: 6.h,),
             InkWell(
               onTap: ()async{
                 setState(() {
                   logout=true;
                 });
-                    SharedPrefController().logout();
+                  await SharedPrefController().logout();
                   if(await AuthApiController().logout())
                   {
                     Navigator.of(context).pushNamed("/login_screen");
@@ -215,7 +316,7 @@ class _UserAccountScreenState extends State<UserAccountScreen> {
               child: ListTile(
                 leading:logout?CircularProgressIndicator():SizedBox(),
                 title: Text(
-                  "LogOut",
+                  AppLocalizations.of(context)!.log_out,
                   style: TextStyle(color: color1,fontSize: 14.sp,fontWeight: FontWeight.w500),
                 ),
                 trailing: Icon(
@@ -225,6 +326,7 @@ class _UserAccountScreenState extends State<UserAccountScreen> {
               ),
             ),
             Divider(),
+            SizedBox(height: 80.h,),
           ],
         )),
       ],

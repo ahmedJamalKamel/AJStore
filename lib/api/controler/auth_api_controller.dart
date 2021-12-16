@@ -21,7 +21,11 @@ class AuthApiController with Helpers {
       'gender': student.gender,
       'STORE_API_KEY':ApiSettings.storeApiKey,
       'city_id':student.city_id
-    });
+    },
+      headers: {
+        'lang':SharedPrefController().language
+        }
+        );
     print("ahmed "+response.statusCode.toString());
     print("ahmed "+jsonDecode(response.body).toString());
 
@@ -44,15 +48,14 @@ class AuthApiController with Helpers {
     return false;
   }
 
-  Future<bool> login(BuildContext context,
-      {required String email, required String password}) async {
+  Future<bool> login(BuildContext context, {required String email, required String password}) async {
     var url = Uri.parse(ApiSettings.login);
     var response = await http.post(url, body: {
       'mobile': email,
       'password': password,
     },
     headers:{
-      'lang':'en'
+      'lang':SharedPrefController().language
     }
     );
     if (response.statusCode == 200) {
@@ -79,11 +82,12 @@ class AuthApiController with Helpers {
     var url = Uri.parse(ApiSettings.logout);
     var response = await http.get(url, headers: {
       HttpHeaders.authorizationHeader: SharedPrefController().token,
-      HttpHeaders.acceptHeader: 'application/json'
+      HttpHeaders.acceptHeader: 'application/json',
+      'lang':SharedPrefController().language
     });
     print(response.statusCode);
     if (response.statusCode == 200 || response.statusCode == 401) {
-      SharedPrefController().clear();
+     // SharedPrefController().clear();
       return true;
     }
     return false;
@@ -97,7 +101,7 @@ class AuthApiController with Helpers {
       'code': code,
     },
         headers:{
-          'lang':'en'
+          'lang':SharedPrefController().language
         }
     );
     if (response.statusCode == 200) {
@@ -120,7 +124,7 @@ class AuthApiController with Helpers {
       'mobile': mobile,
     },
         headers:{
-          'lang':'en'
+          'lang':SharedPrefController().language
         }
     );
 
@@ -158,7 +162,7 @@ class AuthApiController with Helpers {
         'password': password,
         'password_confirmation': password,
       },
-      headers: {HttpHeaders.acceptHeader: 'application/json', 'lang':'en'},
+      headers: {HttpHeaders.acceptHeader: 'application/json', 'lang':SharedPrefController().language},
     );
 
     if (response.statusCode == 200) {

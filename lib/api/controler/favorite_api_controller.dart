@@ -14,7 +14,8 @@ class FavoriteApiController with Helpers
     var url = Uri.parse(ApiSettings.favoriteProducts);
     var response = await http.get(url
         ,headers:{
-          HttpHeaders.authorizationHeader:SharedPrefController().token
+          HttpHeaders.authorizationHeader:SharedPrefController().token,
+          'lang':SharedPrefController().language
         }
     );
     print("getFavorite"+response.statusCode.toString());
@@ -36,7 +37,8 @@ class FavoriteApiController with Helpers
     var response = await http.post(url, body: {
         'product_id':idProduct
     }, headers:{
-        HttpHeaders.authorizationHeader:SharedPrefController().token
+        HttpHeaders.authorizationHeader:SharedPrefController().token,
+      'lang':SharedPrefController().language
         }
     );
     if (response.statusCode == 200) {

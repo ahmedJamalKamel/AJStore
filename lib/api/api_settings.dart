@@ -25,7 +25,8 @@ class ApiSettings
   static const productsRate= _apiUrl +'products/rate';
   //// setting for payment
   static const addresses= _apiUrl +'addresses';
-  static const paymentcards= _apiUrl +'payment-cards';
+  static const addressesDel= _apiUrl +'addresses/';
+  static const paymentcards= _apiUrl +'payment-cards/';
   static const orders= _apiUrl +'orders';
 
 

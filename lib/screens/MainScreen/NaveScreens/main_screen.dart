@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:scound_project_elancer/Them/colors.dart';
 import 'package:scound_project_elancer/api/controler/auth_api_controller.dart';
 import 'package:scound_project_elancer/api/controler/home_api_controller.dart';
@@ -53,49 +54,54 @@ class _MainScreenState extends State<MainScreen> {
     return Scaffold(
       key: _scaffoldkey,
       backgroundColor: color2,
-      appBar: AppBar(
-        elevation: 0,
+      // appBar: AppBar(
+      //   elevation: 0,
+      //   backgroundColor: color2,
+      //   leading: IconButton(
+      //     icon: Container(
+      //         height: 28.h,
+      //         width: 28.w,
+      //         child: SvgPicture.asset("imageSvg/Icon_Menu-Alt.svg")),
+      //     onPressed: () => _scaffoldkey.currentState!.openDrawer(),
+      //     //  tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
+      //   ),
+      //   iconTheme: const IconThemeData(
+      //     color: Colors.black, //change your color here
+      //   ),
+      //   actions: [
+      //     Container(
+      //         margin: EdgeInsets.only(right: 20.w),
+      //         child: Row(
+      //           children: [
+      //             Text(
+      //               "Scan",
+      //               style: TextStyle(color: color1),
+      //             ),
+      //             SizedBox(
+      //               width: 10.w,
+      //             ),
+      //             InkWell(
+      //               // onTap: () async => await logout(context),
+      //               child: Container(
+      //                   height: 32.h,
+      //                   width: 32.w,
+      //                   // decoration: BoxDecoration(borderRadius: BorderRadius.circular(16.w),border: Border.all(width: 1,color: Colors.grey)),
+      //                   child: SizedBox(
+      //                       child: SvgPicture.asset(
+      //                           "imageSvg/Button_Icon_Circle.svg"))),
+      //             )
+      //           ],
+      //         ))
+      //   ],
+      // ),
+      // drawer: Drawer(),
+      appBar: AppBar(title:Text("Home",style: TextStyle(color: color1,fontWeight: FontWeight.bold),) ,
         backgroundColor: color2,
-        leading: IconButton(
-          icon: Container(
-              height: 28.h,
-              width: 28.w,
-              child: SvgPicture.asset("imageSvg/Icon_Menu-Alt.svg")),
-          onPressed: () => _scaffoldkey.currentState!.openDrawer(),
-          //  tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
-        ),
-        iconTheme: const IconThemeData(
-          color: Colors.black, //change your color here
-        ),
-        actions: [
-          Container(
-              margin: EdgeInsets.only(right: 20.w),
-              child: Row(
-                children: [
-                  Text(
-                    "Scan",
-                    style: TextStyle(color: color1),
-                  ),
-                  SizedBox(
-                    width: 10.w,
-                  ),
-                  InkWell(
-                    // onTap: () async => await logout(context),
-                    child: Container(
-                        height: 32.h,
-                        width: 32.w,
-                        // decoration: BoxDecoration(borderRadius: BorderRadius.circular(16.w),border: Border.all(width: 1,color: Colors.grey)),
-                        child: SizedBox(
-                            child: SvgPicture.asset(
-                                "imageSvg/Button_Icon_Circle.svg"))),
-                  )
-                ],
-              ))
-        ],
+        elevation: 0,
+        centerTitle: true,
       ),
-      drawer: Drawer(),
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 28.w, vertical: 28.h),
+        padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 28.h),
         child: Obx(
             ()
             {
@@ -149,7 +155,7 @@ class _MainScreenState extends State<MainScreen> {
                     height: 30.h,
                   ),
                   Text(
-                    "Browse by Categories",
+                    AppLocalizations.of(context)!.browse_by_categories,
                     textAlign: TextAlign.center,
                     style: TextStyle(
                         color: color1,
@@ -227,7 +233,7 @@ class _MainScreenState extends State<MainScreen> {
                   ),
                   Center(
                       child: Text(
-                        "Recommended For You",
+                        AppLocalizations.of(context)!.recommended_for_you,
                         style: TextStyle(
                             color: color1,
                             fontSize: 16.sp,
@@ -238,12 +244,13 @@ class _MainScreenState extends State<MainScreen> {
                     child:!AllDataGetxControler.to.loadingLatestProducts.value &&
                         AllDataGetxControler.to.latestProducts.isNotEmpty
                         ?Container(
-                      height: MediaQuery.of(context).size.height,
+                      height: 200.h,
                       child: GridView.builder(
-                        physics: NeverScrollableScrollPhysics(),
+                        scrollDirection: Axis.horizontal,
+                        //physics: NeverScrollableScrollPhysics(),
                         gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
+                          crossAxisCount: 1,
                           mainAxisSpacing: 10,
                           childAspectRatio: 154 / 220,
                           //  crossAxisSpacing: 154/220,
@@ -305,6 +312,88 @@ class _MainScreenState extends State<MainScreen> {
                       ),
                     )
                         : Center(child: CircularProgressIndicator()),),
+                  Center(
+                      child: Text(
+                        "Famous Products",
+                        style: TextStyle(
+                            color: color1,
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.bold),
+                      )),
+                  Container(
+                    // flex: 1,
+                    child:!AllDataGetxControler.to.loadingFamesceProducts.value &&
+                        AllDataGetxControler.to.FamesceProducts.isNotEmpty
+                        ?Container(
+                         height: 200.h,
+                         child: GridView.builder(
+                        scrollDirection: Axis.horizontal,
+                        //physics: NeverScrollableScrollPhysics(),
+                        gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 1,
+                          mainAxisSpacing: 10,
+                          childAspectRatio: 154 / 220,
+                          //  crossAxisSpacing: 154/220,
+                          crossAxisSpacing: 10,
+                        ),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 10),
+                        itemCount:  AllDataGetxControler.to.FamesceProducts.length,
+                        itemBuilder: (context, index) {
+                          return InkWell(
+                            onTap: () {
+                              Product p= Product();
+                              p.price=AllDataGetxControler.to.FamesceProducts.value[index].price;
+                              p.nameEn=AllDataGetxControler.to.FamesceProducts.value[index].nameEn;
+                              p.imageUrl=AllDataGetxControler.to.FamesceProducts.value[index].imageUrl;
+                              p.id=AllDataGetxControler.to.FamesceProducts.value[index].id;
+                              p.infoAr=AllDataGetxControler.to.FamesceProducts.value[index].infoAr;
+                              p.isFavorite=AllDataGetxControler.to.FamesceProducts.value[index].isFavorite;
+                              p.infoEn=AllDataGetxControler.to.FamesceProducts.value[index].infoEn;
+                              p.nameAr=AllDataGetxControler.to.FamesceProducts.value[index].nameAr;
+                              p.offerPrice=AllDataGetxControler.to.FamesceProducts.value[index].offerPrice;
+                              p.overalRate=AllDataGetxControler.to.FamesceProducts.value[index].overalRate;
+                              p.productRate=AllDataGetxControler.to.FamesceProducts.value[index].productRate;
+                              p.quantity=AllDataGetxControler.to.FamesceProducts.value[index].quantity;
+                              p.subCategoryId=AllDataGetxControler.to.FamesceProducts.value[index].subCategoryId;
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => SingleProductOp1(
+                                    product: p,
+                                  ),
+                                ),
+                              );
+                            },
+                            child: Card01(
+                              image:  AllDataGetxControler.to.FamesceProducts[index].imageUrl,
+                              name:  AllDataGetxControler.to.FamesceProducts[index].name,
+                              price: AllDataGetxControler.to.FamesceProducts[index].price.toString(),
+                            ),
+                          );
+                        },
+                      ),
+                    ) :
+                    !AllDataGetxControler.to.loadingFamesceProducts.value &&
+                        AllDataGetxControler.to.FamesceProducts.isEmpty
+                        ? Center(
+                      child: Column(
+                        children: const [
+                          Icon(Icons.warning, size: 80),
+                          Text(
+                            'NO DATA',
+                            style: TextStyle(
+                              color: Colors.grey,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 24,
+                            ),
+                          )
+                        ],
+                      ),
+                    )
+                        : Center(child: CircularProgressIndicator()),),
+                  SizedBox(height: 50.h,)
                 ],
               );
             }
@@ -313,8 +402,11 @@ class _MainScreenState extends State<MainScreen> {
     );
   }
 
+
   Future<void> logout(BuildContext context) async {
     bool loggedOut = await AuthApiController().logout();
     if (loggedOut) Navigator.pushReplacementNamed(context, '/login_screen');
   }
+
+
 }

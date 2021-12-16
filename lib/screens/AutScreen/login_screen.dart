@@ -11,6 +11,9 @@ import 'package:scound_project_elancer/get/databaseGetx/city_getx_controller.dar
 import 'package:scound_project_elancer/get/databaseGetx/order_getx_controller.dart';
 import 'package:scound_project_elancer/get/favorite_getx_controller.dart';
 import 'package:scound_project_elancer/get/get_all_data_getx_controler.dart';
+import 'package:scound_project_elancer/get/orderGetx/order_getx_controler.dart';
+import 'package:scound_project_elancer/get/pay_order_address_getx/address_getx_controller.dart';
+import 'package:scound_project_elancer/get/pay_order_address_getx/patment_card_getx_controller.dart';
 import 'package:scound_project_elancer/helpers/helpers.dart';
 import 'package:scound_project_elancer/model/city.dart';
 import 'package:scound_project_elancer/prefs/shared_pref_controller.dart';
@@ -71,7 +74,7 @@ class _LoginScreenState extends State<LoginScreen>with Helpers {
             height: 30.h,
           ),
           Text(
-            "Phone Number",
+            AppLocalizations.of(context)!.phone_number,
             style: TextStyle(fontSize: 12.sp, color: color3),
           ),
           SizedBox(
@@ -139,8 +142,9 @@ class _LoginScreenState extends State<LoginScreen>with Helpers {
                 Navigator.of(context).pushNamed("/register_screen");
               },
               child: Center(
-                child: Text("register Now",style: TextStyle(color: Colors.blue),),
-              ))
+                child: Text(AppLocalizations.of(context)!.register_now,style: TextStyle(color: Colors.blue),),
+              )),
+          SizedBox(height:10.h)
         ],
       ),
     );
@@ -174,6 +178,9 @@ class _LoginScreenState extends State<LoginScreen>with Helpers {
       final AllDataGetxControler _allDataGetxControler = Get.put<AllDataGetxControler>(AllDataGetxControler());
       final FavoriteGetXController _FavoriteGetxControler = Get.put<FavoriteGetXController>(FavoriteGetXController());
       final OrderGetxController _OrderGetxControler = Get.put<OrderGetxController>(OrderGetxController());
+      final AddressGetXController _AddressGetXController = Get.put<AddressGetXController>(AddressGetXController());
+      final PaymentCardGetXController _PaymentCardGetXController = Get.put<PaymentCardGetXController>(PaymentCardGetXController());
+      final OrderGetXController _OrderGetXController = Get.put<OrderGetXController>(OrderGetXController());
 
       Navigator.pushReplacementNamed(context, '/home_screen');
 

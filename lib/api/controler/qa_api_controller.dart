@@ -19,8 +19,7 @@ class QAApiController with Helpers{
       'message':Message
     }, headers:{
       HttpHeaders.authorizationHeader:SharedPrefController().token,
-      // HttpHeaders.acceptHeader: '*/*',
-      // HttpHeaders.acceptEncodingHeader:'gzip,deflate,br'
+      'lang':SharedPrefController().language
     }
     );
     print("ahmed"+jsonDecode(response.body)['message'].toString());
@@ -45,7 +44,8 @@ class QAApiController with Helpers{
     var response = await http.get(url
         ,headers:{
           HttpHeaders.authorizationHeader:SharedPrefController().token
-         , HttpHeaders.acceptHeader: 'application/json'
+         , HttpHeaders.acceptHeader: 'application/json',
+          'lang':SharedPrefController().language
     }
     );
     print("getFavorite"+response.statusCode.toString());

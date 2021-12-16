@@ -18,6 +18,7 @@ class Card01 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      elevation: 2,
       clipBehavior: Clip.antiAlias,
       shape:RoundedRectangleBorder(
         borderRadius: BorderRadius.all(Radius.circular(15.w)),

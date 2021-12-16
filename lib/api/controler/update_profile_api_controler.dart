@@ -20,7 +20,8 @@ class UpdateProfileApiController with Helpers
     },
         headers:{
           HttpHeaders.authorizationHeader: SharedPrefController().token,
-          HttpHeaders.acceptHeader: 'application/json'
+          HttpHeaders.acceptHeader: 'application/json',
+          'lang':SharedPrefController().language
         }
     );
     if (response.statusCode == 200) {
@@ -50,7 +51,8 @@ class UpdateProfileApiController with Helpers
     },
         headers:{
           HttpHeaders.authorizationHeader: SharedPrefController().token,
-          HttpHeaders.acceptHeader: 'application/json'
+          HttpHeaders.acceptHeader: 'application/json',
+          'lang':SharedPrefController().language
         }
     );
     if (response.statusCode == 200) {

@@ -8,9 +8,9 @@ class FamousProducts {
  late String infoAr;
  late int price;
  late int quantity;
- late int overalRate;
+ late var overalRate;
  late int subCategoryId;
- late int productRate;
+ late var productRate;
  late Null offerPrice;
  late bool isFavorite;
  late String imageUrl;

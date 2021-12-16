@@ -24,7 +24,7 @@ class SharedPrefController {
   }
  // String get imagePathS =>_sharedPreferences.getString(PrefKeys.imagePath.toString())??"";
   String get imagePathS {
-    print("imagePathS");
+    print("imagePathS"+_sharedPreferences.getString(PrefKeys.imagePath.toString()).toString());
     return _sharedPreferences.getString(PrefKeys.imagePath.toString())??"";
   }
   bool get selectPath => _sharedPreferences.getBool(PrefKeys.imagePathSelect.toString()) ?? false;
@@ -33,6 +33,9 @@ class SharedPrefController {
   }
   Future<void> setLanguage({required String lang}) async {
     await _sharedPreferences.setString(PrefKeys.lang.toString(), lang);
+  }
+  Future<void> setCityCreated() async {
+    await _sharedPreferences.setBool(PrefKeys.city.toString(),true);
   }
   String get language => _sharedPreferences.getString(PrefKeys.lang.toString()) ?? 'en';
   Future<void> save({required User student}) async {
@@ -61,7 +64,7 @@ class SharedPrefController {
   Future<void>logout()
   async{
     await _sharedPreferences.setBool(PrefKeys.loggedIn.toString(), false);
-    await _sharedPreferences.setBool(PrefKeys.city.toString(), false);
+ //   await _sharedPreferences.setBool(PrefKeys.city.toString(), false);
 
   }
   String get fullName =>_sharedPreferences.getString(PrefKeys.fullName.toString())??"";
@@ -71,14 +74,14 @@ class SharedPrefController {
   // String get cityNameId =>_sharedPreferences.getString(PrefKeys.cityNameId.toString())??"";
 
   bool get loggedIn => _sharedPreferences.getBool(PrefKeys.loggedIn.toString()) ?? false;
-  bool get createdCity => _sharedPreferences.getBool(PrefKeys.city.toString()) ?? false;
+  bool get createdCity =>  _sharedPreferences.getBool(PrefKeys.city.toString()) ?? false;
 
   String get token =>
       _sharedPreferences.getString(PrefKeys.token.toString()) ?? '';
 
-  Future<bool> clear() async {
-    return await _sharedPreferences.clear();
-  }
+  // Future<bool> clear() async {
+  //   return await _sharedPreferences.clear();
+  // }
   CityData get ugetCity
   {
     CityData cityData=CityData();

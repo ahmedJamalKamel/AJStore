@@ -25,7 +25,6 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       body: Stack(
         children: [
           main?MainScreen():search?SearchScreen():myCard?MyCartScreen():save?SavedScreen():UserAccountScreen(),
