@@ -79,6 +79,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen>
             //controller: _emailTextController,
             textEditingController: _emailTextController,
             prefixIcon: Icons.phone_android,
+            textInputType: TextInputType.phone,
             color: color1,
           ),
           SizedBox(height: 84.h),

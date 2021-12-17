@@ -11,7 +11,7 @@ mixin Helpers {
         content: Text(message),
         backgroundColor: error ? Colors.red : Colors.green,
         behavior: SnackBarBehavior.floating,
-        duration: Duration(seconds: 1),
+        duration: Duration(seconds: 2),
       ),
     );
   }

@@ -30,9 +30,10 @@ class AuthApiController with Helpers {
     print("ahmed "+jsonDecode(response.body).toString());
 
     if (response.statusCode == 201) {
-    {  showSnackBar(
+    {
+      showSnackBar(
         context: context,
-        message: jsonDecode(response.body)['message'],
+        message: jsonDecode(response.body)['code'].toString(),
       );
     print(jsonDecode(response.body)['code']);
       return true;
@@ -129,6 +130,11 @@ class AuthApiController with Helpers {
 
     if (response.statusCode == 200) {
       print(jsonDecode(response.body)['code']);
+      showSnackBar(
+        context: context,
+        message: jsonDecode(response.body)['code'].toString(),
+
+      );
       return true;
     } else if (response.statusCode == 400) {
       showSnackBar(
